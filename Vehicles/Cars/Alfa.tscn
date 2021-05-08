@@ -1,0 +1,80 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Vehicles/Cars/BaseCar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Vehicles/Alfa/Alfa_1.png" type="Texture" id=2]
+[ext_resource path="res://Audio/Engines/Alfa/EngineLoad.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/Engines/Alfa/EngineIdle.wav" type="AudioStream" id=4]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.245455 ), 0.0, 0.1669, 0, 0, Vector2( 0.304469, 0.563636 ), 1.58078, 1.58078, 0, 0, Vector2( 0.594972, 0.872727 ), 0.895001, 0.895001, 0, 0, Vector2( 0.907821, 0.954545 ), -0.302748, 0.0, 0, 0, Vector2( 1, 0.854545 ), -1.67377, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=2]
+min_value = 0.4
+max_value = 1.6
+_data = [ Vector2( 0, 0.4 ), 0.0, 1.723, 0, 0, Vector2( 1, 1.6 ), 0.686093, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 1.32216, 0, 0, Vector2( 1, 0.990909 ), 0.555654, 0.0, 0, 0 ]
+
+[node name="Alfa" instance=ExtResource( 1 )]
+mass = 0.89
+gravity_scale = 0.0
+can_sleep = false
+drag = 0.24
+traction_limit = 3.7
+braking_force = 2.3
+front_downforce = 0.1
+rear_downforce = 0.4
+weight_bias = -0.15
+suspension_setup = 0.2
+steering_speed_decay_modifier = -0.2
+dual_clutch = true
+redline = 6500
+gear_speeds = [ 35, 29, 53, 83, 122, 158, 191 ]
+torque_curve = SubResource( 1 )
+
+[node name="Wheels" parent="." index="0"]
+position = Vector2( 0, -2.3 )
+
+[node name="FL" parent="Wheels" index="0"]
+position = Vector2( -28.5, -38.8 )
+
+[node name="WheelSprite" parent="Wheels/FL" index="1"]
+scale = Vector2( 0.195, 0.15 )
+
+[node name="FR" parent="Wheels" index="1"]
+position = Vector2( 28.5, -38.8 )
+
+[node name="WheelSprite" parent="Wheels/FR" index="1"]
+scale = Vector2( 0.195, 0.15 )
+
+[node name="RL" parent="Wheels" index="2"]
+position = Vector2( -28.5, 38.8 )
+power = 2.4
+
+[node name="WheelSprite" parent="Wheels/RL" index="1"]
+scale = Vector2( 0.2, 0.15 )
+
+[node name="RR" parent="Wheels" index="3"]
+position = Vector2( 28.5, 38.8 )
+power = 2.4
+
+[node name="WheelSprite" parent="Wheels/RR" index="1"]
+scale = Vector2( 0.2, 0.15 )
+
+[node name="Body" parent="." index="1"]
+position = Vector2( -0.25, -3.5 )
+texture = ExtResource( 2 )
+
+[node name="Collision" parent="." index="2"]
+polygon = PoolVector2Array( -31.1175, -50.5926, -0.216751, -68.3259, 31.8786, -50.2776, 32.981, 47.9962, 22.4037, 59.6583, -0.415176, 63.8253, -23.4325, 58.6662, -32.8499, 47.9962 )
+
+[node name="Audio" parent="." index="3"]
+pitch_curve = SubResource( 2 )
+volume_curve = SubResource( 3 )
+
+[node name="EngineLoad" parent="Audio" index="0"]
+stream = ExtResource( 3 )
+
+[node name="EngineIdle" parent="Audio" index="1"]
+stream = ExtResource( 4 )

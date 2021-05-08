@@ -1,0 +1,294 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Fonts/exo.regular.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/UI/MainMenu/Buttons/MenuButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/Vehicles/RX-7/RX-7_1.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/UI/MainMenu/Fonts/PopUpButtonFont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scripts/UI/custom_session.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+use_filter = true
+extra_spacing_bottom = -60
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 22
+use_filter = true
+extra_spacing_bottom = 10
+font_data = ExtResource( 1 )
+
+[node name="CustomSession" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 300.0
+margin_top = 120.0
+margin_right = -300.0
+margin_bottom = -120.0
+custom_constants/separation = 35
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Menu"]
+margin_right = 1320.0
+margin_bottom = 43.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.270588 )
+custom_constants/shadow_offset_y = 5
+text = "Custom Session
+"
+align = 1
+
+[node name="MainRow" type="VBoxContainer" parent="Menu"]
+margin_top = 78.0
+margin_right = 1320.0
+margin_bottom = 589.0
+size_flags_vertical = 3
+script = ExtResource( 8 )
+
+[node name="TopRow" type="HBoxContainer" parent="Menu/MainRow"]
+margin_right = 1320.0
+margin_bottom = 253.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+alignment = 1
+
+[node name="CarSection" type="HBoxContainer" parent="Menu/MainRow/TopRow"]
+margin_right = 440.0
+margin_bottom = 253.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = -30
+alignment = 1
+
+[node name="LeftPadding" type="Label" parent="Menu/MainRow/TopRow/CarSection"]
+margin_top = 119.0
+margin_right = 40.0
+margin_bottom = 133.0
+text = "          "
+
+[node name="Previous" parent="Menu/MainRow/TopRow/CarSection" instance=ExtResource( 2 )]
+margin_left = 10.0
+margin_right = 130.0
+margin_bottom = 253.0
+text = "<"
+script = null
+
+[node name="Car" type="Label" parent="Menu/MainRow/TopRow/CarSection"]
+margin_left = 182.0
+margin_top = 101.0
+margin_right = 258.0
+margin_bottom = 151.0
+size_flags_horizontal = 6
+custom_fonts/font = ExtResource( 4 )
+text = "Car"
+align = 2
+
+[node name="Next" parent="Menu/MainRow/TopRow/CarSection" instance=ExtResource( 2 )]
+margin_left = 310.0
+margin_right = 430.0
+margin_bottom = 253.0
+text = ">"
+script = null
+
+[node name="RightPadding" type="Label" parent="Menu/MainRow/TopRow/CarSection"]
+margin_left = 400.0
+margin_top = 119.0
+margin_right = 440.0
+margin_bottom = 133.0
+text = "          "
+
+[node name="TrackSection" type="HBoxContainer" parent="Menu/MainRow/TopRow"]
+margin_left = 440.0
+margin_right = 880.0
+margin_bottom = 253.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = -30
+alignment = 1
+
+[node name="LeftPadding2" type="Label" parent="Menu/MainRow/TopRow/TrackSection"]
+margin_top = 119.0
+margin_right = 40.0
+margin_bottom = 133.0
+text = "          "
+
+[node name="Previous" parent="Menu/MainRow/TopRow/TrackSection" instance=ExtResource( 2 )]
+margin_left = 10.0
+margin_right = 130.0
+margin_bottom = 253.0
+text = "<"
+script = null
+
+[node name="Track" type="Label" parent="Menu/MainRow/TopRow/TrackSection"]
+margin_left = 157.0
+margin_top = 101.0
+margin_right = 283.0
+margin_bottom = 151.0
+size_flags_horizontal = 6
+custom_fonts/font = ExtResource( 4 )
+text = "Track"
+align = 2
+
+[node name="Next" parent="Menu/MainRow/TopRow/TrackSection" instance=ExtResource( 2 )]
+margin_left = 310.0
+margin_right = 430.0
+margin_bottom = 253.0
+text = ">"
+script = null
+
+[node name="RightPadding2" type="Label" parent="Menu/MainRow/TopRow/TrackSection"]
+margin_left = 400.0
+margin_top = 119.0
+margin_right = 440.0
+margin_bottom = 133.0
+text = "          "
+
+[node name="ModeSection" type="HBoxContainer" parent="Menu/MainRow/TopRow"]
+margin_left = 880.0
+margin_right = 1320.0
+margin_bottom = 253.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = -30
+alignment = 1
+
+[node name="LeftPadding3" type="Label" parent="Menu/MainRow/TopRow/ModeSection"]
+margin_top = 119.0
+margin_right = 40.0
+margin_bottom = 133.0
+text = "          "
+
+[node name="Previous" parent="Menu/MainRow/TopRow/ModeSection" instance=ExtResource( 2 )]
+margin_left = 10.0
+margin_right = 130.0
+margin_bottom = 253.0
+text = "<"
+script = null
+
+[node name="Mode" type="Label" parent="Menu/MainRow/TopRow/ModeSection"]
+margin_left = 159.0
+margin_top = 101.0
+margin_right = 281.0
+margin_bottom = 151.0
+size_flags_horizontal = 6
+custom_fonts/font = ExtResource( 4 )
+text = "Mode"
+align = 2
+
+[node name="Next" parent="Menu/MainRow/TopRow/ModeSection" instance=ExtResource( 2 )]
+margin_left = 310.0
+margin_right = 430.0
+margin_bottom = 253.0
+text = ">"
+script = null
+
+[node name="RightPadding3" type="Label" parent="Menu/MainRow/TopRow/ModeSection"]
+margin_left = 400.0
+margin_top = 119.0
+margin_right = 440.0
+margin_bottom = 133.0
+text = "          "
+
+[node name="Label" type="Label" parent="Menu/MainRow/TopRow"]
+margin_left = 1320.0
+margin_top = 119.0
+margin_right = 1320.0
+margin_bottom = 133.0
+
+[node name="BottomRow" type="HBoxContainer" parent="Menu/MainRow"]
+margin_top = 257.0
+margin_right = 1320.0
+margin_bottom = 511.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Car" type="HBoxContainer" parent="Menu/MainRow/BottomRow"]
+margin_right = 437.0
+margin_bottom = 254.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CarIcon" type="TextureRect" parent="Menu/MainRow/BottomRow/Car"]
+margin_right = 216.0
+margin_bottom = 254.0
+rect_pivot_offset = Vector2( 108.25, 127 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Stats" type="VBoxContainer" parent="Menu/MainRow/BottomRow/Car"]
+margin_left = 220.0
+margin_right = 437.0
+margin_bottom = 254.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Text" type="Label" parent="Menu/MainRow/BottomRow/Car/Stats"]
+margin_top = 56.0
+margin_right = 217.0
+margin_bottom = 197.0
+custom_fonts/font = SubResource( 2 )
+text = "Rotary - 180hp
+2700 lbs (1225 kg)
+5 Speed Manual
+Rear Wheel Drive"
+align = 1
+valign = 1
+
+[node name="Track" type="HBoxContainer" parent="Menu/MainRow/BottomRow"]
+margin_left = 441.0
+margin_right = 878.0
+margin_bottom = 254.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Mode" type="HBoxContainer" parent="Menu/MainRow/BottomRow"]
+margin_left = 882.0
+margin_right = 1320.0
+margin_bottom = 254.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Start" parent="Menu" instance=ExtResource( 2 )]
+margin_top = 624.0
+margin_right = 1320.0
+margin_bottom = 690.0
+text = "Start"
+script = null
+
+[node name="Label" type="Label" parent="Menu"]
+margin_top = 725.0
+margin_right = 1320.0
+margin_bottom = 739.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" parent="Menu" instance=ExtResource( 2 )]
+margin_top = 774.0
+margin_right = 1320.0
+margin_bottom = 840.0
+text = "Back"
+scene = "res://Scenes/UI/MainMenu/TitleScreen.tscn"
+
+[connection signal="pressed" from="Menu/MainRow/TopRow/CarSection/Previous" to="Menu/MainRow" method="_on_car_previous"]
+[connection signal="pressed" from="Menu/MainRow/TopRow/CarSection/Next" to="Menu/MainRow" method="_on_car_next"]
+[connection signal="pressed" from="Menu/MainRow/TopRow/TrackSection/Previous" to="Menu/MainRow" method="_on_track_previous"]
+[connection signal="pressed" from="Menu/MainRow/TopRow/TrackSection/Next" to="Menu/MainRow" method="_on_track_next"]
+[connection signal="pressed" from="Menu/MainRow/TopRow/ModeSection/Previous" to="Menu/MainRow" method="_on_mode_previous"]
+[connection signal="pressed" from="Menu/MainRow/TopRow/ModeSection/Next" to="Menu/MainRow" method="_on_mode_next"]

@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/UI/pause_menu.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/exo.regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/UI/MainMenu/Buttons/MenuButton.tscn" type="PackedScene" id=3]
+
+
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.133333, 0.207843, 0.32549, 0.705882 )
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="DynamicFont" id=2]
+size = 80
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="PauseMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.235294 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 750.0
+margin_top = 335.0
+margin_right = -750.0
+margin_bottom = -335.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 345.0
+margin_bottom = 155.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.270588 )
+custom_constants/shadow_offset_y = 5
+text = "Paused"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 750.0
+margin_top = 470.0
+margin_right = -750.0
+margin_bottom = -320.0
+custom_constants/separation = 35
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" parent="Menu" instance=ExtResource( 3 )]
+margin_right = 420.0
+margin_bottom = 66.0
+text = "Resume"
+script = null
+
+[node name="Restart" parent="Menu" instance=ExtResource( 3 )]
+margin_top = 101.0
+margin_right = 420.0
+margin_bottom = 167.0
+text = "Restart"
+script = null
+
+[node name="Quit" parent="Menu" instance=ExtResource( 3 )]
+margin_top = 202.0
+margin_right = 420.0
+margin_bottom = 268.0
+text = "Quit To Menu"
+script = null

@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Vehicles/Cars/BaseCar.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Vehicles/Mini/Mini_1.png" type="Texture" id=2]
+[ext_resource path="res://Audio/Engines/Mini/EngineOffLoad.wav" type="AudioStream" id=3]
+[ext_resource path="res://Audio/Engines/Mini/EngineLoad.wav" type="AudioStream" id=4]
+[ext_resource path="res://Vehicles/Curves/MiniCurve.tres" type="Curve" id=5]
+
+[sub_resource type="Curve" id=1]
+min_value = 0.3
+max_value = 1.2
+_data = [ Vector2( 0, 0.308182 ), 0.0, 0.890374, 0, 0, Vector2( 1, 1.2 ), 1.00909, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=2]
+min_value = 0.4
+_data = [ Vector2( 0, 0.4 ), 0.0, 0.6, 0, 1, Vector2( 1, 1 ), 0.288311, 0.0, 0, 0 ]
+
+[node name="Mini" instance=ExtResource( 1 )]
+mass = 0.7
+drag = 0.27
+traction_limit = 2.6
+braking_force = 1.3
+handbrake_multiplier = 3.0
+weight_bias = 0.2
+suspension_setup = -0.7
+redline = 6500
+gear_speeds = [ 35, 22, 45, 69, 85 ]
+torque_curve = ExtResource( 5 )
+
+[node name="Wheels" parent="." index="0"]
+position = Vector2( 0, 5 )
+
+[node name="FL" parent="Wheels" index="0"]
+position = Vector2( -29, -33 )
+power = 1.1
+
+[node name="WheelSprite" parent="Wheels/FL" index="1"]
+scale = Vector2( 0.189, 0.14 )
+
+[node name="FR" parent="Wheels" index="1"]
+position = Vector2( 29, -33 )
+power = 1.1
+
+[node name="WheelSprite" parent="Wheels/FR" index="1"]
+scale = Vector2( 0.189, 0.14 )
+
+[node name="RL" parent="Wheels" index="2"]
+position = Vector2( -29, 33 )
+
+[node name="WheelSprite" parent="Wheels/RL" index="1"]
+scale = Vector2( 0.189, 0.14 )
+
+[node name="RR" parent="Wheels" index="3"]
+position = Vector2( 29, 33 )
+
+[node name="WheelSprite" parent="Wheels/RR" index="1"]
+scale = Vector2( 0.189, 0.14 )
+
+[node name="Body" parent="." index="1"]
+position = Vector2( -0.2, 6 )
+texture = ExtResource( 2 )
+
+[node name="Collision" parent="." index="2"]
+visible = true
+position = Vector2( 0, 8.114 )
+polygon = PoolVector2Array( -23.887, -58.2907, 23.75, -58.4993, 28.714, -54.7451, 31.7638, -49.3897, 32.0522, 45.6106, 29.9348, 51.3134, 26.1289, 54.5373, 14.5125, 57.7613, -10.1636, 58.0586, -22.13, 56.0518, -28.7449, 53.0044, -31.7923, 46.7611, -31.8544, -49.5309, -28.0167, -55.7045 )
+
+[node name="Audio" parent="." index="3"]
+pitch_curve = SubResource( 1 )
+volume_curve = SubResource( 2 )
+
+[node name="EngineLoad" parent="Audio" index="0"]
+stream = ExtResource( 4 )
+
+[node name="EngineIdle" parent="Audio" index="1"]
+stream = ExtResource( 3 )

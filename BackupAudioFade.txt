@@ -1,0 +1,71 @@
+	_engine_load = $EngineLoad
+	_engine_idle = $EngineIdle
+	
+	_engine_load_next = AudioStreamPlayer2D.new()
+	_engine_load_next.autoplay = false
+	_engine_load_next.stream = _engine_load.stream
+	_engine_load_next.bus = _engine_load.bus
+	_engine_load_next.volume_db = -80
+	add_child(_engine_load_next)
+	
+	_engine_idle_next = AudioStreamPlayer2D.new()
+	_engine_idle_next.autoplay = false
+	_engine_idle_next.stream = _engine_idle.stream
+	_engine_idle_next.bus = _engine_idle.bus
+	_engine_idle_next.volume_db = -80
+	add_child(_engine_idle_next)
+	
+	_tween_load_in = Tween.new()
+	_tween_load_out = Tween.new()
+	_tween_idle_in = Tween.new()
+	_tween_idle_out = Tween.new()
+	
+	add_child(_tween_load_in)
+	add_child(_tween_load_out)
+	add_child(_tween_idle_in)
+	add_child(_tween_idle_out)
+
+func _fade_load_sound():
+	_engine_load_next.play()
+	_tween_load_out.interpolate_property(self, "_load_vol", _load_vol, -80, transition_time, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, 0)
+	#_tween_load_in.interpolate_property(self, "_load_next_vol", _load_next_vol, 0, transition_time, Tween.TRANS_LINEAR, Tween.EASE_OUT, 0)
+	_tween_load_out.start()
+	#_tween_load_in.start()
+	
+	
+
+
+func _fade_idle_sound():
+	_engine_idle_next.play()
+	
+	_tween_idle_out.interpolate_property(_engine_idle, "volume_db", _engine_idle.volume_db, -80, transition_time, Tween.TRANS_EXPO, Tween.EASE_IN, 0)
+	_tween_idle_in.interpolate_property(_engine_idle_next, "volume_db", _engine_idle_next.volume_db, 0, transition_time, Tween.TRANS_EXPO, Tween.EASE_OUT, 0)
+	_tween_idle_out.start()
+	_tween_idle_in.start()
+	
+	var temp = _engine_idle
+	_engine_idle = _engine_idle_next
+	_engine_idle_next = temp
+
+
+func _end_transition(object, key):
+	
+	#_tween_load_in.stop(self)
+	
+	var temp_el = _engine_load
+	_engine_load = _engine_load_next
+	_engine_load_next = temp_el
+	
+	var temp_lv : float = float(_load_vol)
+	_load_vol = float(_load_next_vol)
+	_load_next_vol = float(temp_lv)
+	_in_transition = false
+
+func _log_base(value, base):
+	return log(value) / log(base)
+
+#	var time_left = _engine_load.stream.get_length() - _engine_load.get_playback_position()
+#	if time_left < transition_time + 0.1 and time_left > transition_time and !_in_transition:
+#		_in_transition = true
+#		_fade_load_sound()
+#		#_fade_idle_sound()

@@ -1,0 +1,1057 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Textures/Grass/grass09.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Tracks/Track1.png" type="Texture" id=2]
+[ext_resource path="res://Textures/Grass/grass15.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Gameplay/race_manager.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Gameplay/checkpoint.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/Gameplay/player_controller.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/UI/MainMenu/FadeIn.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Shaders/noise_mask.shader" type="Shader" id=9]
+[ext_resource path="res://Scripts/Gameplay/object_spline.gd" type="Script" id=10]
+[ext_resource path="res://Sprites/Noise1.tres" type="Texture" id=11]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 9 )
+shader_param/mask = ExtResource( 11 )
+
+[sub_resource type="RayShape2D" id=2]
+length = 520.0
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( -10.0718, 14025.5 )
+b = Vector2( -7.56055, 13.1274 )
+
+[sub_resource type="SegmentShape2D" id=4]
+b = Vector2( 3.05273, 14093.4 )
+
+[sub_resource type="SegmentShape2D" id=5]
+b = Vector2( -15.8447, 14032.6 )
+
+[sub_resource type="SegmentShape2D" id=6]
+a = Vector2( 32.9434, 14064.3 )
+
+[node name="Track1" type="Node2D"]
+position = Vector2( -3661.65, 1378.06 )
+
+[node name="Track" type="Node2D" parent="."]
+position = Vector2( -12.274, 624.392 )
+z_index = -2
+
+[node name="Grass" type="TextureRect" parent="Track"]
+show_behind_parent = true
+margin_left = -10791.0
+margin_top = -10791.0
+margin_right = 6009.0
+margin_bottom = 6009.0
+rect_scale = Vector2( 1.25, 1.25 )
+texture = ExtResource( 3 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LightGrass" type="TextureRect" parent="Track"]
+show_behind_parent = true
+material = SubResource( 1 )
+margin_left = -10776.4
+margin_top = -10751.3
+margin_right = -4776.37
+margin_bottom = -4751.27
+rect_scale = Vector2( 3.5, 3.5 )
+texture = ExtResource( 1 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TrackSprite" type="Sprite" parent="Track"]
+scale = Vector2( 1.05, 1.05 )
+texture = ExtResource( 2 )
+
+[node name="TrackOuterArea" type="Area2D" parent="Track"]
+position = Vector2( -414.826, -768.13 )
+
+[node name="OuterShape" type="CollisionPolygon2D" parent="Track/TrackOuterArea"]
+visible = false
+position = Vector2( -20, -38 )
+scale = Vector2( 1.05, 1.05 )
+polygon = PoolVector2Array( -2645.48, 6217.25, -2637.53, 6236.32, -2622.7, 6250.09, -2601.51, 6255.39, -350.194, 6255.21, -336.98, 6253.8, -318.102, 6243.41, -305.832, 6226.89, -305.36, 6216.98, 2003.41, 6216.89, 2141.65, 6210.86, 2260.44, 6188.94, 2394.79, 6150.76, 2519.24, 6096.31, 2628.14, 6029.14, 2746.93, 5932.26, 2821.88, 5855.19, 2889.06, 5763.27, 2956.94, 5640.94, 3000.78, 5531.34, 3031.89, 5426.69, 3050.28, 5334.05, 3059.47, 5249.91, 3063.71, 5164.35, 3057.35, 5060.4, 3040.38, 4959.29, 3009.97, 4847.57, 2972.5, 4755.64, 2913.1, 4649.58, 2848.05, 4559.07, 2755.42, 4455.12, 2621.77, 4320.77, 2629.55, 4308.75, 2631.67, 4290.37, 2626.02, 4269.15, 2599.85, 4238.75, 2565.2, 4189.25, 2551.06, 4159.55, 2541.87, 4122.78, 2542.76, 4079.26, 2551.77, 4032.11, 2568.19, 3986.03, 2586.2, 3947.36, 2610.04, 3907.1, 2616.4, 3893.85, 2616.4, 3872.66, 2603.15, 3851.48, 2657.36, 3783.34, 2732.28, 3704.68, 2816.93, 3614.03, 2915.82, 3504.66, 4559.99, 1736.7, 4619.69, 1661.02, 4678.25, 1577.13, 4718.34, 1499.63, 4752.2, 1406.08, 4764.62, 1336.57, 4765.74, 1243.41, 4746.66, 1156.98, 4708.5, 1069.43, 4654.62, 997.588, 4574.92, 927.995, 4509.5, 889.199, 4426.16, 852.689, 4319.01, 820.941, 4188.84, 794.749, 4034.07, 775.7, 3842.79, 753.476, 3582.45, 722.522, 3459.43, 696.33, 3393.55, 680.456, 3295.93, 643.152, 3296.72, 621.722, 3287.99, 600.292, 3261.8, 581.243, 3218.94, 547.908, 3195.92, 513.779, 3179.25, 469.332, 3173.7, 408.217, 3225.29, 401.867, 3288.78, 403.454, 3456.26, 416.947, 3477.69, 416.154, 3495.15, 404.248, 3506.26, 382.818, 3656.27, 397.899, 3827.71, 405.836, 3930.1, 404.248, 4058.67, 392.343, 4159.47, 373.294, 4280.12, 336.784, 4402.35, 282.812, 4529.34, 198.68, 4621.41, 117.722, 4714.27, 7.39771, 4803.17, -137.056, 4862.69, -274.366, 4907.93, -432.313, 4926.19, -552.955, 4931.75, -674.391, 4922.22, -799.796, 4886.5, -952.98, 4839.68, -1064.1, 4781.74, -1160.93, 4690.46, -1279.98, 4596.8, -1377.61, 4422.19, -1556.99, 4430.92, -1573.65, 4429.33, -1605.4, 4404.73, -1641.12, 4362.66, -1698.27, 4316.63, -1788.75, 4288.05, -1887.96, 4278.53, -1995.11, 4287.26, -2060.99, 4308.69, -2137.18, 4321.39, -2167.34, 4317.42, -2195.92, 4299.96, -2214.17, 4389.65, -2392.75, 4475.37, -2581.65, 4506.32, -2674.52, 4541.24, -2815.8, 4553.15, -2984.85, 4546.01, -3122.96, 4530.13, -3222.96, 4498.38, -3348.37, 4455.52, -3466.63, 4404.73, -3570.61, 4325.36, -3703.15, 4232.5, -3827.77, 4142.81, -3929.36, 4034.86, -4033.33, 3920.57, -4127.78, 3854.69, -4177.79, 3858.08, -4194.18, 3854.9, -4218.55, 3841.13, -4238.15, 3733.51, -4308.13, 3588.01, -4394.22, 3455.19, -4460.96, 3332.39, -4516.36, 3180.88, -4573.76, 3017.36, -4623.82, 2790.44, -4673.87, 2628.92, -4699.24, 2429.37, -4717.92, 2283.87, -4720.59, 2195.77, -4716.59, 2169.74, -4706.58, 2156.39, -4688.56, 2154.39, -4675.88, 2008.89, -4656.52, 1839.36, -4615.81, 1689.2, -4552.4, 1531.02, -4439.61, 1418.89, -4300.78, 1367.5, -4201.34, 1328.12, -4055.84, 1320.11, -3933.03, 1337.46, -3779.53, 1377.51, -3612.67, 1444.92, -3410.44, 1500.98, -3246.26, 1530.35, -3152.82, 1567.06, -3004.65, 1587.75, -2885.85, 1593.09, -2764.38, 1587.08, -2651.59, 1567.06, -2534.12, 1539.02, -2438.68, 1494.97, -2329.22, 1419.55, -2193.74, 1396.19, -2161.7, 1379.51, -2166.37, 1360.15, -2165.04, 1340.8, -2153.69, 1316.77, -2122.32, 1234.68, -2038.89, 1196.64, -2009.53, 1151.25, -1978.83, 1083.17, -1948.13, 1044.46, -1940.12, 1005.75, -1937.45, 938.345, -1948.12, 875.607, -1974.82, 803.526, -2016.87, 716.761, -2082.28, 699.408, -2092.29, 680.053, -2093.62, 662.032, -2085.61, 656.693, -2081.61, 571.263, -2158.36, 441.783, -2277.16, 306.964, -2391.96, 228.874, -2449.36, 132.098, -2508.09, 31.9849, -2552.14, -72.8, -2579.51, -171.579, -2584.85, -253.004, -2576.84, -360.46, -2550.14, -456.569, -2504.09, -540.664, -2444.02, -594.725, -2386.62, -678.153, -2277.16, -743.56, -2160.36, -798.288, -2029.55, -842.34, -1898.07, -907.081, -1674.48, -982.502, -1421.53, -997.185, -1421.53, -1019.88, -1414.86, -1033.89, -1397.5, -1040.57, -1377.48, -1071.94, -1302.73, -1103.31, -1241.33, -1128, -1202.62, -1150.69, -1177.92, -1164.71, -1169.91, -1182.73, -1167.91, -1212.76, -1177.92, -1274.17, -1210.63, -1368.27, -1279.37, -1403.64, -1310.74, -1414.32, -1317.41, -1431.01, -1320.75, -1447.69, -1317.41, -1459.71, -1310.07, -1581.85, -1422.2, -1738.02, -1568.36, -1836.8, -1651.12, -1935.58, -1724.54, -2056.38, -1793.28, -2181.86, -1841.34, -2283.3, -1862.7, -2398.1, -1864.7, -2516.24, -1846.01, -2625.03, -1805.96, -2741.16, -1735.22, -2845.94, -1643.78, -2944.05, -1528.98, -3032.15, -1386.16, -3089.55, -1266.69, -3150.29, -1097.83, -3202.63, -848.206, -3216.49, -621.421, -3208.3, -489.759, -3173.66, -296.361, -3121.37, -146.43, -3065.93, -35.5574, -2994.75, 67.1261, -2900.88, 171.7, -2805.76, 258.004, -2738.98, 310.921, -2744.65, 329.19, -2741.5, 351.238, -2726.38, 368.877, -2656.46, 423.054, -2593.46, 479.75, -2545.59, 540.226, -2516.61, 610.782, -2509.05, 690.157, -2521.65, 768.902, -2551.26, 847.647, -2592.2, 928.282, -2636.3, 1000.1, -2641.97, 1022.78, -2636.93, 1044.19, -2624.96, 1058.68, -2692.36, 1170.19, -2752.84, 1284.84, -2813.32, 1431.62, -2844.19, 1563.28, -2854.89, 1702.5, -2843.55, 1838.58, -2807.65, 1991.03, -2771.11, 2086.15, -2733.31, 2164.9, -2655.2, 2293.41, -2579.6, 2388.53, -2464.32, 2499.4, -2344.63, 2581.3, -2227.45, 2635.48, -2105.24, 2669.49, -1995.63, 2678.94, -1889.17, 2669.49, -1809.16, 2653.12, -1720.97, 2621.62, -1646.63, 2583.82, -1576.7, 2542.24, -1489.14, 2481.77, -1475.28, 2491.85, -1455.12, 2496.25, -1429.29, 2487.44, -1358.11, 2437.04, -1284.4, 2396.72, -1244.08, 2384.12, -1213.85, 2381.6, -1180.46, 2384.75, -1146.44, 2393.57, -1070.85, 2427.59, -997.14, 2474.84, -958.713, 2508.85, -934.144, 2529.01, -918.395, 2539.72, -894.457, 2540.98, -876.188, 2532.16, -851.619, 2559.25, -789.884, 2634.22, -721.218, 2740.68, -674.602, 2833.28, -638.066, 2925.89, -607.828, 3031.09, -589.559, 3133.15, -583.89, 3195.51, -583.891, 3294.42, -595.552, 3393.54, -614.644, 3484.75, -649.291, 3581.63, -695.96, 3679.91, -765.257, 3790.22, -823.947, 3863.05, -893.242, 3935.18, -963.953, 3996.7, -978.094, 3989.63, -994.358, 3986.8, -1007.79, 3985.38, -1024.06, 3994.58, -1088.4, 4036.3, -1161.24, 4076.6, -1226.29, 4104.18, -1301.24, 4128.93, -1369.83, 4142.36, -1435.59, 4147.31, -1490.75, 4142.36, -1540.24, 4130.34, -1588.33, 4109.83, -1637.83, 4080.13, -1697.22, 4031.34, -1753.79, 3971.24, -1818.84, 3895.58, -1831.57, 3882.85, -1852.78, 3877.2, -1876.12, 3883.56, -1973.7, 3753.45, -2050.77, 3654.46, -2137.75, 3556.17, -2207.75, 3491.12, -2304.63, 3418.99, -2385.23, 3375.86, -2479.99, 3340.5, -2593.83, 3320, -2705.55, 3317.87, -2842.73, 3340.5, -2954.45, 3378.68, -3076.78, 3439.5, -3147.49, 3484.04, -3238, 3552.63, -3313.66, 3616.27, -3394.98, 3696.88, -3462.16, 3769.71, -3481.95, 3764.76, -3502.46, 3767.59, -3522.97, 3779.61, -3592.97, 3870.12, -3677.11, 3987.5, -3763.38, 4123.27, -3865.21, 4308.53, -3945.11, 4481.06, -4007.33, 4644.4, -4049.05, 4778.75, -4092.19, 4949.87, -4100.67, 5008.56, -4100.67, 5029.78, -4090.06, 5050.99, -4069.56, 5061.6, -4083.7, 5187.46, -4085.82, 5324.64, -4071.68, 5456.87, -4027.84, 5638.6, -3963.5, 5777.19, -3904.1, 5859.92, -3820.66, 5946.9, -3725.2, 6023.26, -3637.52, 6075.59, -3520.14, 6128.62, -3375.89, 6173.17, -3210.43, 6202.16, -3107.9, 6212.76, -3007.49, 6219.13 )
+
+[node name="TrackInnerArea" type="Area2D" parent="Track"]
+position = Vector2( -414.826, -768.13 )
+
+[node name="InnerShape" type="CollisionPolygon2D" parent="Track/TrackInnerArea"]
+visible = false
+position = Vector2( -20, -35 )
+scale = Vector2( 0.698, 0.51 )
+polygon = PoolVector2Array( -4359.11, 11763.2, 2984.61, 11763.9, 2997.37, 11716.6, 3032.99, 11684.6, 3185.57, 11665, 3292.81, 11626.9, 3410.7, 11557.1, 3519.04, 11463.4, 3625.78, 11328.2, 3716.59, 11119, 3778.83, 10862.8, 3800.09, 10667.8, 3787.33, 10475.8, 3749.05, 10304.1, 3704.39, 10176.1, 3661.86, 10097.5, 3649.1, 10042.2, 3653.35, 9995.64, 3668.24, 9981.09, 3574.67, 9844.33, 3383.27, 9585.34, 3255.67, 9378.74, 3166.36, 9198.33, 3085.54, 8985.9, 3026, 8680.36, 3011.11, 8511.59, 3013.24, 8319.53, 3036.63, 8092.56, 3089.8, 7865.59, 3145.09, 7670.63, 3236.54, 7452.38, 3362.01, 7213.77, 3487.48, 7018.81, 3959.59, 6326.25, 3942.58, 6282.6, 3951.09, 6233.13, 3965.97, 6198.21, 5161.9, 4432.49, 5194.1, 4414.34, 5233.89, 4409.16, 5247.15, 4422.12, 5451.77, 4126.58, 5690.49, 3774.01, 6086.47, 3195.9, 6073.14, 3157.82, 6074.56, 3101.49, 6093.01, 3064.59, 6291.72, 2765.51, 6003.05, 2695.33, 5959.59, 2683.94, 5935.46, 2637.33, 5934.04, 2610.14, 5495.46, 2546.05, 5188.88, 2483.9, 4960.36, 2417.87, 4673.65, 2283.86, 4492.66, 2150.06, 4326.64, 1981.99, 4241.4, 1868.49, 4165.17, 1737.65, 4096.95, 1592.92, 4031.57, 1398.22, 3978.41, 1124.69, 3959.27, 906.449, 3969.9, 656.198, 4020.94, 391.396, 4125.15, 141.145, 4293.15, -82.918, 4448.39, -187.675, 4565.36, -237.143, 4675.94, -269.152, 4814.18, -286.611, 4963.04, -286.611, 5099.14, -269.152, 5333.07, -240.053, 5675.46, -196.404, 5871.11, -199.314, 6026.36, -225.503, 6156.08, -263.332, 6151.83, -295.341, 6164.59, -338.99, 6198.62, -373.908, 6304.95, -458.295, 6392.14, -571.782, 6464.45, -699.818, 6521.87, -848.223, 6566.52, -1017, 6596.3, -1194.5, 6606.93, -1377.83, 6594.17, -1523.32, 6566.52, -1642.63, 6549.09, -1741.92, 6572.06, -1803.06, 6521.01, -1911.37, 6374.23, -2127.98, 6189.16, -2379.53, 6005.36, -2664.27, 5879, -2905.33, 5773.79, -3170.07, 5693.71, -3470.86, 5642.6, -3785.65, 5625.1, -4063.7, 5637.19, -4348.84, 5681.85, -4628.19, 5762.66, -4930.82, 5862.61, -5210.17, 5949.8, -5454.6, 6011.47, -5635.02, 6041.52, -5741.07, 6019.34, -5763.64, 6002.86, -5807.21, 6006.27, -5853.12, 6026.36, -6004.57, 6036.99, -6126.79, 6026.36, -6350.85, 6002.47, -6526.28, 5957.17, -6696.55, 5901.72, -6857.56, 5838.84, -6995.44, 5821.96, -7047.84, 5833.77, -7100.96, 5848.96, -7119.44, 5717.31, -7329.61, 5579.21, -7524.75, 5448.72, -7678.36, 5296.59, -7834.75, 5080.59, -8023.18, 4781.88, -8232, 4587.03, -8340.83, 4349.87, -8444.81, 4116.88, -8519.6, 3852.77, -8579.84, 3557.55, -8614.12, 3311.61, -8607.84, 3160.58, -8582.91, 3056.61, -8550.71, 3055.47, -8498.26, 3036.12, -8468.65, 3010.31, -8447.88, 2938.97, -8405.29, 2898.75, -8374.13, 2844.11, -8314.93, 2819.82, -8268.19, 2798.57, -8201.71, 2797.22, -8124.11, 2802.28, -8038.65, 2807.34, -7964.75, 2838.8, -7814.28, 2831.97, -7746.76, 2800.85, -7706.25, 2973.81, -7018.87, 3072.59, -6543.64, 3126.75, -6157.78, 3145.78, -5877.42, 3174.18, -5863.54, 3198.26, -5824.3, 3208.68, -5751.71, 3206.96, -5566, 3190.23, -5283.69, 3148.01, -4959.97, 3084.28, -4662.4, 3030.91, -4472.75, 2962.41, -4261.29, 2911.42, -4130.49, 2887.53, -4098.88, 2854.52, -4092.53, 2825.01, -4097.47, 2730.44, -3897.14, 2644.9, -3732.26, 2516.74, -3533.43, 2389.81, -3366.71, 2260.32, -3226.81, 2099.32, -3089.23, 1913.61, -2979.64, 1773.12, -2922.99, 1642.12, -2894.2, 1529.29, -2885.04, 1394.47, -2894.2, 1232.88, -2932.16, 1133.43, -2975.34, 999.565, -3046.01, 862.545, -3138.65, 684.585, -3306.93, 532.756, -3463.46, 328.032, -3709.8, 186.78, -3894.37, 165.874, -3876.77, 141.752, -3872.36, 118.435, -3882.27, 62.9546, -3941.69, -15.0386, -4029.73, -84.187, -4103.46, -151.728, -4165.08, -208.012, -4204.7, -242.586, -4221.21, -267.23, -4212.35, -302.607, -4166.13, -344.418, -4088, -377.385, -4005.47, -406.331, -3925.13, -451.358, -3765.57, -460.203, -3744.66, -474.676, -3728.15, -492.365, -3717.15, -524.527, -3716.05, -579.753, -3455.66, -631.598, -3210.83, -679.016, -2984.17, -732.554, -2732.38, -794.616, -2488.22, -869.809, -2229.37, -966.485, -1974.61, -1038.1, -1824.36, -1138.35, -1664.31, -1248.16, -1531.21, -1351.99, -1438.12, -1433.75, -1386.68, -1519.09, -1343.4, -1605.62, -1314.82, -1703.49, -1297.67, -1823.44, -1296.86, -1952.34, -1318.9, -2106.3, -1381.78, -2238.78, -1463.44, -2378.69, -1577.73, -2502.96, -1700.9, -2666.26, -1889.46, -2754.22, -1999.49, -3100.16, -2447.49, -3124.01, -2428.84, -3148.71, -2424.17, -3173.42, -2433.5, -3281.6, -2552.42, -3382.13, -2648.02, -3435.79, -2690, -3494.57, -2724.97, -3535.46, -2738.96, -3574.88, -2734.97, -3609.3, -2715.34, -3656.15, -2673.46, -3703.01, -2614.57, -3765.16, -2517.73, -3816.79, -2411.73, -3865.56, -2290.02, -3904.76, -2169.62, -3942.05, -2040.07, -3954.48, -2013.89, -3980.3, -1991.65, -4014.72, -1985.1, -4035.31, -1847.67, -4069.44, -1599.1, -4082.15, -1429.6, -4074.99, -1108.44, -4057.93, -962.024, -4032.01, -818.414, -3982.06, -647.985, -3936.54, -547.631, -3877.74, -442.952, -3799.58, -332.254, -3724.1, -248.3, -3638.12, -156.597, -3547.07, -60.5691, -3416.83, 85.636, -3329.58, 199.832, -3222.73, 359.014, -3148.12, 508.68, -3086.16, 653.154, -3041.27, 796.764, -2999.54, 977.575, -2974.89, 1156.65, -2962.24, 1351.31, -2964.14, 1513.95, -2977.41, 1679.19, -3002.17, 1836.03, -3036.24, 1992.37, -3083.08, 2157.45, -3142.69, 2325.44, -3222.18, 2524.51, -3375.47, 2875.06, -3445.02, 3047.91, -3478.37, 3146.96, -3503.92, 3233.39, -3520.95, 3312.04, -3534.44, 3395.55, -3538.69, 3517.91, -3534.44, 3604.33, -3518.11, 3710.18, -3492.56, 3824.76, -3449.98, 3957.8, -3425.14, 3949.06, -3396.76, 3960.71, -3369.79, 3995.67, -3342.82, 4053.93, -3278.95, 4167.55, -3207.27, 4264.65, -3129.91, 4341.37, -3069.59, 4382.15, -3008.56, 4403.52, -2951.07, 4396.72, -2850.3, 4332.63, -2758.75, 4252.03, -2693.46, 4186, -2660.81, 4171.43, -2633.85, 4177.26, -2608.3, 4198.62, -2431.59, 4040.34, -2282.81, 3929.29, -2099.67, 3839.22, -1939.32, 3801.11, -1790.78, 3793.03, -1668.41, 3805.73, -1511.43, 3853.07, -1346.86, 3935.07, -1194.95, 4042.46, -1094.75, 4125.73, -902.425, 4328.69, -698.721, 4606.04, -552.189, 4864.21, -424.709, 5141.83, -399.419, 5135.77, -364.013, 5148.75, -341.252, 5185.08, -277.909, 5356.81, -176.872, 5710.39, -108.024, 6082.32, -73.1538, 6421.22, -65.4082, 6702.14, -73.2939, 6956.49, -95.8247, 7166.13, -149.9, 7500.63, -202.848, 7716.43, -253.542, 7887.53, -273.82, 7946.11, -295.249, 7981.53, -330.75, 7999.86, -356.875, 7994.36, -413.91, 8136.17, -527.444, 8380, -692.505, 8662.4, -834.967, 8863.19, -984.179, 9032.76, -1124.74, 9177.96, -1356.96, 9363.58, -1532.37, 9471.28, -1777.11, 9579.83, -2024.55, 9636.03, -2225.29, 9639.3, -2450.73, 9602.25, -2665.01, 9506.33, -2815.57, 9403.87, -2976.48, 9256.72, -3111.1, 9100.85, -3278.41, 8855.08, -3445.35, 8569.91, -3596.34, 8292.01, -3616.32, 8300.65, -3646.27, 8301.27, -3675.78, 8282.91, -3696.79, 8247.43, -3754.46, 8153.84, -3820.25, 8060.62, -3879.4, 7993.57, -3929.53, 7953.49, -3962.76, 7938.08, -4016.84, 7934.22, -4064.71, 7948.1, -4115.97, 7969.68, -4183, 8010.53, -4278.19, 8088.37, -4377.33, 8195.5, -4401.45, 8213.84, -4437.92, 8216.43, -4464.92, 8194.4, -4509.41, 8249.11, -4615.31, 8399.4, -4708.25, 8548.93, -4795.11, 8703.04, -4959.83, 9047.52, -5066.16, 9306.5, -5146.98, 9537.84, -5214.96, 9758.38, -5276.29, 9994.91, -5325.68, 10224.9, -5359.94, 10437.4, -5379.05, 10595.5, -5354.36, 10607.5, -5331.26, 10645.6, -5326.48, 10697.9, -5331.96, 10864.6, -5324.44, 11039.5, -5295.86, 11208.2, -5246.24, 11344, -5175.56, 11441.7, -5056.77, 11542.5, -4878.57, 11623.8, -4659.02, 11671.1, -4477.82, 11685.6, -4425.94, 11684.5, -4395.86, 11691.7, -4369.55, 11719.5 )
+
+[node name="Sun" type="Node2D" parent="."]
+position = Vector2( 0.5, 0.5 )
+
+[node name="StartingPoints" type="Node2D" parent="."]
+
+[node name="Position1" type="Node2D" parent="StartingPoints"]
+position = Vector2( -1187.46, 5941.35 )
+rotation = 1.5708
+
+[node name="RaceManager" type="Node2D" parent="."]
+script = ExtResource( 5 )
+starting_points = [ NodePath("../StartingPoints/Position1") ]
+
+[node name="Checkpoints" type="Node2D" parent="RaceManager"]
+
+[node name="Checkpoint0" type="Area2D" parent="RaceManager/Checkpoints"]
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint0"]
+position = Vector2( -913.931, 5818.71 )
+rotation = -0.00920198
+shape = SubResource( 2 )
+
+[node name="Checkpoint1" type="Area2D" parent="RaceManager/Checkpoints"]
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint1"]
+position = Vector2( 1555.54, 5822.84 )
+rotation = -0.00920198
+shape = SubResource( 2 )
+
+[node name="Checkpoint2" type="Area2D" parent="RaceManager/Checkpoints"]
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint2"]
+position = Vector2( 1863.12, 5791.73 )
+rotation = -0.352057
+shape = SubResource( 2 )
+
+[node name="Checkpoint3" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint3"]
+position = Vector2( 1923.56, 5727.28 )
+rotation = -0.902884
+shape = SubResource( 2 )
+
+[node name="Checkpoint4" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint4"]
+position = Vector2( 2042.73, 5417.07 )
+rotation = -1.52781
+shape = SubResource( 2 )
+
+[node name="Checkpoint5" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint5"]
+position = Vector2( 2003.68, 5150.99 )
+rotation = -2.00639
+shape = SubResource( 2 )
+
+[node name="Checkpoint6" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint6"]
+position = Vector2( 1766.87, 4866.02 )
+rotation = -2.31094
+shape = SubResource( 2 )
+
+[node name="Checkpoint7" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint7"]
+position = Vector2( 1508.25, 4499.27 )
+rotation = -1.93937
+shape = SubResource( 2 )
+
+[node name="Checkpoint8" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint8"]
+position = Vector2( 1486.34, 4030.59 )
+rotation = -1.28334
+shape = SubResource( 2 )
+
+[node name="Checkpoint9" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint9"]
+position = Vector2( 1630.26, 3713.96 )
+rotation = -1.00419
+shape = SubResource( 2 )
+
+[node name="Checkpoint10" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint10"]
+position = Vector2( 1921.52, 3373.39 )
+rotation = -0.83588
+shape = SubResource( 2 )
+
+[node name="Checkpoint11" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint11"]
+position = Vector2( 3504.88, 1671.22 )
+rotation = -0.849237
+shape = SubResource( 2 )
+
+[node name="Checkpoint12" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint12"]
+position = Vector2( 3779.65, 1372 )
+rotation = -1.10541
+shape = SubResource( 2 )
+
+[node name="Checkpoint13" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint13"]
+position = Vector2( 3824.21, 1307.9 )
+rotation = -2.19856
+shape = SubResource( 2 )
+
+[node name="Checkpoint14" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint14"]
+position = Vector2( 3307.23, 1240.07 )
+rotation = -3.02744
+shape = SubResource( 2 )
+
+[node name="Checkpoint15" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint15"]
+position = Vector2( 2478.54, 1017.74 )
+rotation = -2.59377
+shape = SubResource( 2 )
+
+[node name="Checkpoint16" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint16"]
+position = Vector2( 2211, 739.685 )
+rotation = -2.05637
+shape = SubResource( 2 )
+
+[node name="Checkpoint17" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint17"]
+position = Vector2( 2130.68, 494.9 )
+rotation = -1.75144
+shape = SubResource( 2 )
+
+[node name="Checkpoint18" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint18"]
+position = Vector2( 2334.01, -88.5503 )
+rotation = -0.667821
+shape = SubResource( 2 )
+
+[node name="Checkpoint19" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint19"]
+position = Vector2( 2783.95, -212.78 )
+rotation = -0.0228064
+shape = SubResource( 2 )
+
+[node name="Checkpoint20" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint20"]
+position = Vector2( 3432.03, -168.022 )
+rotation = -0.0900555
+shape = SubResource( 2 )
+
+[node name="Checkpoint21" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint21"]
+position = Vector2( 3904.89, -410.622 )
+rotation = -1.06763
+shape = SubResource( 2 )
+
+[node name="Checkpoint22" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( 199.404, -111.723 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint22"]
+position = Vector2( 3939.28, -995.547 )
+rotation = -2.16065
+shape = SubResource( 2 )
+
+[node name="Checkpoint23" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint23"]
+position = Vector2( 3873.96, -1043.2 )
+rotation = -2.09834
+shape = SubResource( 2 )
+
+[node name="Checkpoint24" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint24"]
+position = Vector2( 3697.12, -1685.88 )
+rotation = -1.52094
+shape = SubResource( 2 )
+
+[node name="Checkpoint25" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint25"]
+position = Vector2( 3923.32, -2330.33 )
+rotation = -1.22146
+shape = SubResource( 2 )
+
+[node name="Checkpoint26" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint26"]
+position = Vector2( 3969.04, -2983.81 )
+rotation = -1.98476
+shape = SubResource( 2 )
+
+[node name="Checkpoint27" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint27"]
+position = Vector2( 3419.26, -3583.56 )
+rotation = -2.57775
+shape = SubResource( 2 )
+
+[node name="Checkpoint28" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint28"]
+position = Vector2( 2664.11, -3897.5 )
+rotation = -2.91751
+shape = SubResource( 2 )
+
+[node name="Checkpoint29" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint29"]
+position = Vector2( 1774.55, -3863.59 )
+rotation = -3.66042
+shape = SubResource( 2 )
+
+[node name="Checkpoint30" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint30"]
+position = Vector2( 1675.22, -3714.67 )
+rotation = -4.52867
+shape = SubResource( 2 )
+
+[node name="Checkpoint31" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint31"]
+position = Vector2( 1735.48, -3422.26 )
+rotation = -4.97739
+shape = SubResource( 2 )
+
+[node name="Checkpoint32" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint32"]
+position = Vector2( 1961.44, -2412.3 )
+rotation = -4.70203
+shape = SubResource( 2 )
+
+[node name="Checkpoint33" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint33"]
+position = Vector2( 1840.93, -1855.52 )
+rotation = -4.33795
+shape = SubResource( 2 )
+
+[node name="Checkpoint34" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint34"]
+position = Vector2( 1456.98, -1287.96 )
+rotation = -3.88933
+shape = SubResource( 2 )
+
+[node name="Checkpoint35" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint35"]
+position = Vector2( 1077.75, -1061.42 )
+rotation = -3.4479
+shape = SubResource( 2 )
+
+[node name="Checkpoint36" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint36"]
+position = Vector2( 394.481, -1146.56 )
+rotation = -2.6395
+shape = SubResource( 2 )
+
+[node name="Checkpoint37" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint37"]
+position = Vector2( -221.315, -1649.28 )
+rotation = -2.63523
+shape = SubResource( 2 )
+
+[node name="Checkpoint38" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint38"]
+position = Vector2( -393.309, -1752.8 )
+rotation = -3.23513
+shape = SubResource( 2 )
+
+[node name="Checkpoint39" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint39"]
+position = Vector2( -504.048, -1662.14 )
+rotation = -4.20938
+shape = SubResource( 2 )
+
+[node name="Checkpoint40" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint40"]
+position = Vector2( -631.54, -1360.77 )
+rotation = -4.42454
+shape = SubResource( 2 )
+
+[node name="Checkpoint41" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint41"]
+position = Vector2( -826.79, -724.418 )
+rotation = -4.33646
+shape = SubResource( 2 )
+
+[node name="Checkpoint42" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint42"]
+position = Vector2( -1069.83, -359.651 )
+rotation = -3.84945
+shape = SubResource( 2 )
+
+[node name="Checkpoint43" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint43"]
+position = Vector2( -1748, -284.458 )
+rotation = -2.7172
+shape = SubResource( 2 )
+
+[node name="Checkpoint44" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -215.901, -625.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint44"]
+position = Vector2( -2266.41, -683.391 )
+rotation = -2.4377
+shape = SubResource( 2 )
+
+[node name="Checkpoint45" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint45"]
+position = Vector2( -2372.12, -803.229 )
+rotation = -2.68309
+shape = SubResource( 2 )
+
+[node name="Checkpoint46" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint46"]
+position = Vector2( -2578.69, -815.67 )
+rotation = -3.74431
+shape = SubResource( 2 )
+
+[node name="Checkpoint47" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint47"]
+position = Vector2( -2775.58, -549.059 )
+rotation = -4.36704
+shape = SubResource( 2 )
+
+[node name="Checkpoint48" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint48"]
+position = Vector2( -2840.24, 164.983 )
+rotation = -4.87347
+shape = SubResource( 2 )
+
+[node name="Checkpoint49" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint49"]
+position = Vector2( -2453.57, 597.397 )
+rotation = -5.6063
+shape = SubResource( 2 )
+
+[node name="Checkpoint50" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint50"]
+position = Vector2( -2179.63, 915.231 )
+rotation = -5.18348
+shape = SubResource( 2 )
+
+[node name="Checkpoint51" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint51"]
+position = Vector2( -2092.27, 1382.64 )
+rotation = -4.69518
+shape = SubResource( 2 )
+
+[node name="Checkpoint52" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint52"]
+position = Vector2( -2283.31, 1902.12 )
+rotation = -4.23585
+shape = SubResource( 2 )
+
+[node name="Checkpoint53" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint53"]
+position = Vector2( -2488.01, 2441.69 )
+rotation = -4.92662
+shape = SubResource( 2 )
+
+[node name="Checkpoint54" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint54"]
+position = Vector2( -2293.22, 2794.21 )
+rotation = -5.5854
+shape = SubResource( 2 )
+
+[node name="Checkpoint55" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint55"]
+position = Vector2( -2086.83, 2880.13 )
+rotation = -6.31143
+shape = SubResource( 2 )
+
+[node name="Checkpoint56" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint56"]
+position = Vector2( -1621.2, 2604.32 )
+rotation = -6.73346
+shape = SubResource( 2 )
+
+[node name="Checkpoint57" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint57"]
+position = Vector2( -994.581, 2588.33 )
+rotation = -5.91659
+shape = SubResource( 2 )
+
+[node name="Checkpoint58" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint58"]
+position = Vector2( -541.294, 2910.6 )
+rotation = -5.42259
+shape = SubResource( 2 )
+
+[node name="Checkpoint59" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint59"]
+position = Vector2( -217.63, 3426.08 )
+rotation = -5.06451
+shape = SubResource( 2 )
+
+[node name="Checkpoint60" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint60"]
+position = Vector2( -122.33, 4207.46 )
+rotation = -4.49978
+shape = SubResource( 2 )
+
+[node name="Checkpoint61" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint61"]
+position = Vector2( -355.845, 4817.46 )
+rotation = -4.09365
+shape = SubResource( 2 )
+
+[node name="Checkpoint62" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint62"]
+position = Vector2( -881.619, 5321.98 )
+rotation = -3.67512
+shape = SubResource( 2 )
+
+[node name="Checkpoint63" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint63"]
+position = Vector2( -1597.08, 5505.53 )
+rotation = -3.05353
+shape = SubResource( 2 )
+
+[node name="Checkpoint64" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint64"]
+position = Vector2( -2377.92, 5016.52 )
+rotation = -2.22703
+shape = SubResource( 2 )
+
+[node name="Checkpoint65" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint65"]
+position = Vector2( -2608.79, 4721 )
+rotation = -2.35796
+shape = SubResource( 2 )
+
+[node name="Checkpoint66" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint66"]
+position = Vector2( -2755.97, 4603.63 )
+rotation = -2.79718
+shape = SubResource( 2 )
+
+[node name="Checkpoint67" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint67"]
+position = Vector2( -2947.61, 4635.58 )
+rotation = -3.60345
+shape = SubResource( 2 )
+
+[node name="Checkpoint68" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint68"]
+position = Vector2( -3211.96, 4842.61 )
+rotation = -4.00455
+shape = SubResource( 2 )
+
+[node name="Checkpoint69" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint69"]
+position = Vector2( -3632.97, 5504.27 )
+rotation = -4.34679
+shape = SubResource( 2 )
+
+[node name="Checkpoint70" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint70"]
+position = Vector2( -3779.69, 6046.59 )
+rotation = -4.63636
+shape = SubResource( 2 )
+
+[node name="Checkpoint71" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint71"]
+position = Vector2( -3716.73, 6407.52 )
+rotation = -5.35883
+shape = SubResource( 2 )
+
+[node name="Checkpoint72" type="Area2D" parent="RaceManager/Checkpoints"]
+position = Vector2( -429.901, -773.191 )
+script = ExtResource( 6 )
+
+[node name="TriggerLine" type="CollisionShape2D" parent="RaceManager/Checkpoints/Checkpoint72"]
+position = Vector2( -3387.39, 6575.53 )
+rotation = -6.10577
+shape = SubResource( 2 )
+
+[node name="Drivers" type="Node2D" parent="."]
+
+[node name="Player" type="Node2D" parent="Drivers"]
+script = ExtResource( 7 )
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Tires" type="Node2D" parent="Objects"]
+
+[node name="Corner1" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 4941.34, 6763.87, 5000.15, 6751.51, 5051.09, 6738.77, 5100.54, 6723.79, 5178.82, 6694.2, 5220.78, 6675.85, 5267.97, 6652.25, 5319.66, 6623.03, 5359.74, 6597.93, 5403.94, 6566.84, 5461.25, 6521.9, 5503.96, 6482.94, 5539.91, 6447.35, 5581.12, 6400.91, 5624.94, 6343.22, 5659.52, 6292.38, 5695.58, 6230.16, 5726.34, 6169.35, 5748.61, 6119.14, 5767.7, 6067.17, 5787.5, 6008.13, 5800.59, 5959.34, 5813.31, 5903.83, 5823.57, 5841.96, 5831.34, 5766.65, 5834.17, 5709.73, 5833.11, 5633.71, 5825.69, 5546.74, 5815.08, 5481.34, 5796.7, 5402.49, 5770.18, 5322.24, 5733.41, 5238.09, 5702.3, 5178.34, 5652.8, 5100.91, 5605.78, 5037.98 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 200.0
+
+[node name="Straight1" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 5272.96, 3602.05, 6416.17, 2372.89 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = -200.0
+
+[node name="Corner2" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 6083.74, 638.443, 6176.35, 644.617, 6291.96, 656.964, 6400.28, 667.627, 6550.69, 678.852, 7142.86, 708.045 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 160.0
+
+[node name="Corner3" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 7697.24, 32.8776, 7740.67, -84.7229, 7774.58, -217.156, 7794.71, -375.016, 7794.71, -493.676, 7773.52, -660.011, 7721.6, -815.752, 7678.17, -898.39, 7628.37, -978.91 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 200.0
+
+[node name="Corner4" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 6705.42, -4104.27, 6607.57, -4173.76, 6536.21, -4219.54, 6467.24, -4264.14, 6386.37, -4311.7, 6323.35, -4345, 6256.16, -4380.08, 6174.69, -4418.73, 6087.88, -4455.6, 5964.8, -4501.98, 5866.09, -4534.08, 5745.99, -4567.38, 5652.9, -4588.83, 5536.35, -4613.8, 5427.54, -4629.86, 5315.16, -4645.31, 5167.7, -4656.02, 5078.51, -4658.99, 4972.07, -4658.99, 4910.83, -4655.42, 4840.07, -4650.07, 4787.75, -4643.53 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 200.0
+
+[node name="Corner5" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 4587.69, -1821.52, 4556.58, -1771.07, 4522.1, -1719.77, 4483.42, -1666.8, 4443.9, -1617.18, 4390.08, -1557.48, 4342.99, -1509.55, 4289.05, -1460.1, 4238.32, -1418.05, 4178.92, -1375.33, 4128.2, -1342.63, 4066.13, -1307.93, 3995.38, -1275.22, 3919.3, -1249.19, 3858.56, -1233.17, 3779.14, -1219.16, 3687.7, -1213.15, 3600.94, -1216.49, 3522.18, -1227.84, 3442.09, -1247.86, 3349.32, -1282.56, 3268.56, -1319.94, 3185.67, -1368.11, 3095.17, -1430.33, 3022.42, -1485.73, 2963.69, -1535.79, 2918.97, -1573.83, 2878.93, -1609.87, 2739.95, -1737.97 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = -21.0
+
+[node name="Corner6" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 3307.08, -1932.86, 3201.7, -2027.17, 3122.77, -2100.28, 3045.43, -2169.67, 2972.86, -2232.18, 2877.17, -2304.11, 2803.17, -2352.61, 2720.67, -2397.11, 2639.17, -2428.61, 2578.67, -2444.11, 2514.17, -2455.11, 2449.17, -2458.61, 2384.17, -2455.11, 2328.67, -2447.61, 2268.67, -2431.61, 2211.17, -2409.61, 2153.17, -2381.61, 2089.67, -2339.11, 2037.67, -2295.11, 1990.67, -2247.61, 1945.67, -2191.61, 1913.83, -2146.16, 1867.78, -2067.41, 1823.34, -1976.82, 1786.34, -1889.37, 1761.12, -1819.58, 1723.73, -1703.92, 1697.51, -1614.02, 1672.04, -1524.87, 1651.81, -1452.95, 1634.58, -1392.27, 1585.19, -1231.13 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 21.0
+
+[node name="Corner7" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 457.125, -989.248, 576.542, -877.471, 665.283, -794.032, 768.875, -698.926, 866.81, -617.255, 943.178, -560.687, 1008.58, -518.967, 1096.97, -472.652, 1167.68, -443.66, 1231.68, -424.922, 1300.27, -411.487, 1373.8, -405.83, 1443.81, -409.012, 1507.8, -417.851, 1575.33, -435.882, 1636.85, -460.631, 1710.74, -501.29, 1747.16, -527.453, 1805.85, -577.304, 1851.1, -624.326, 1904.14, -691.855, 1935.25, -738.878, 1979.44, -817.013, 2008.43, -875.703, 2040.96, -951.363, 2067.12, -1019.6, 2097.53, -1110.11, 2120.86, -1184.35, 2154.1, -1298.2, 2173.9, -1369.62, 2202.89, -1469.32, 2222.33, -1537.2, 2253.8, -1634.43 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 21.0
+
+[node name="Corner8" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -269.348, -1558.5, -353.133, -1486.37, -416.504, -1418.83, -475.12, -1342.94, -527.561, -1263.53, -577.754, -1172.88, -614.463, -1097.96, -646.864, -1016.25, -677.102, -929.32, -696.486, -868.017, -713.457, -798.013, -729.267, -724.066, -741.88, -641.237 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 200.0
+
+[node name="Corner9" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -271.077, 2487.88, -227.077, 2571.13, -185.454, 2637.13, -149.184, 2687.67, -108.157, 2739.99, -71.8867, 2779.83, -31.4541, 2822.64, 29.1958, 2875.56, 72.0078, 2909.45, 123.738, 2944.54, 179.631, 2976.64, 230.172, 3001.02, 293.201, 3026.59, 346.715, 3043.24, 411.526, 3057.51, 490.013, 3067.02, 577.236, 3065.85, 651.762, 3057.24, 739.797, 3034.61, 798.84, 3011.99, 844.449, 2991.13, 889.67, 2967.89, 925.972, 2946.77, 973.701, 2917.08, 1011.18, 2890.91 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 200.0
+
+[node name="Corner10" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 2321.99, 2879.01, 2355.23, 2939.82, 2379.27, 2989.32, 2401.19, 3035.28, 2416.04, 3077, 2432.3, 3115.89, 2448.57, 3161.15, 2466.95, 3215.59, 2478.97, 3258.73, 2491.7, 3311.05, 2500.19, 3352.06, 2511.84, 3412.95, 2518.3, 3456.73, 2528.4, 3561.68, 2532.61, 3648.11, 2532.02, 3701.58, 2529.78, 3754.02, 2526.03, 3801.96, 2521.54, 3842.42, 2511.8, 3906.1, 2498.31, 3974.27, 2482.58, 4039.45, 2467.6, 4094.14, 2454.86, 4131.59, 2429.05, 4202.29, 2408.42, 4252.3, 2382.23, 4308.65, 2355.24, 4360.24 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = -200.0
+
+[node name="Corner11" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -996.687, 4194.58, -1048.47, 4251.48, -1107.56, 4324.98, -1163, 4400.58, -1216.49, 4477.48, -1272.84, 4564.79, -1316.09, 4637.41, -1364.51, 4722.73, -1406.18, 4804.88, -1448.64, 4894.57, -1484.76, 4976.72, -1521.66, 5067.99, -1552.62, 5155.3, -1581.19, 5245.78, -1606.98, 5337.06, -1628.41, 5429.13, -1646.27, 5521.99, -1655.53, 5582.21, -1663.22, 5644.06, -1667.98, 5726.6 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 200.0
+
+[node name="Straight2" type="Line2D" parent="Objects/Tires"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -238.207, 6782.4, 2402.81, 6783.06 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 200.0
+
+[node name="ExtraLayers" type="Node2D" parent="Objects/Tires"]
+
+[node name="Straight1Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 5272.96, 3602.05, 6416.17, 2372.89 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = -241.0
+offset = -19.5
+remove_first = true
+
+[node name="Straight2Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -238.207, 6782.4, 2402.81, 6783.06 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 241.0
+offset = -19.5
+remove_first = true
+
+[node name="Corner1Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 4941.34, 6763.87, 5000.15, 6751.51, 5051.09, 6738.77, 5100.54, 6723.79, 5178.82, 6694.2, 5220.78, 6675.85, 5267.97, 6652.25, 5319.66, 6623.03, 5359.74, 6597.93, 5403.94, 6566.84, 5461.25, 6521.9, 5503.96, 6482.94, 5539.91, 6447.35, 5581.12, 6400.91, 5624.94, 6343.22, 5659.52, 6292.38, 5695.58, 6230.16, 5726.34, 6169.35, 5748.61, 6119.14, 5767.7, 6067.17, 5787.5, 6008.13, 5800.59, 5959.34, 5813.31, 5903.83, 5823.57, 5841.96, 5831.34, 5766.65, 5834.17, 5709.73, 5833.11, 5633.71, 5825.69, 5546.74, 5815.08, 5481.34, 5796.7, 5402.49, 5770.18, 5322.24, 5733.41, 5238.09, 5702.3, 5178.34, 5652.8, 5100.91, 5605.78, 5037.98 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 241.0
+offset = -19.5
+remove_first = true
+
+[node name="Corner2Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 6083.74, 638.443, 6176.35, 644.617, 6291.96, 656.964, 6400.28, 667.627, 6550.69, 678.852, 7142.86, 708.045 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 119.0
+offset = -19.5
+remove_first = true
+
+[node name="Corner3Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 7697.24, 32.8776, 7740.67, -84.7229, 7774.58, -217.156, 7794.71, -375.016, 7794.71, -493.676, 7773.52, -660.011, 7721.6, -815.752, 7678.17, -898.39, 7628.37, -978.91 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 241.0
+offset = -19.5
+remove_first = true
+
+[node name="Corner4Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 6705.42, -4104.27, 6607.57, -4173.76, 6536.21, -4219.54, 6467.24, -4264.14, 6386.37, -4311.7, 6323.35, -4345, 6256.16, -4380.08, 6174.69, -4418.73, 6087.88, -4455.6, 5964.8, -4501.98, 5866.09, -4534.08, 5745.99, -4567.38, 5652.9, -4588.83, 5536.35, -4613.8, 5427.54, -4629.86, 5315.16, -4645.31, 5167.7, -4656.02, 5078.51, -4658.99, 4972.07, -4658.99, 4910.83, -4655.42, 4840.07, -4650.07, 4787.75, -4643.53 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 241.0
+offset = 15.0
+
+[node name="Corner5Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 4587.69, -1821.52, 4556.58, -1771.07, 4522.1, -1719.77, 4483.42, -1666.8, 4443.9, -1617.18, 4390.08, -1557.48, 4342.99, -1509.55, 4289.05, -1460.1, 4238.32, -1418.05, 4178.92, -1375.33, 4128.2, -1342.63, 4066.13, -1307.93, 3995.38, -1275.22, 3919.3, -1249.19, 3858.56, -1233.17, 3779.14, -1219.16, 3687.7, -1213.15, 3600.94, -1216.49, 3522.18, -1227.84, 3442.09, -1247.86, 3349.32, -1282.56, 3268.56, -1319.94, 3185.67, -1368.11, 3095.17, -1430.33, 3022.42, -1485.73, 2963.69, -1535.79, 2918.97, -1573.83, 2878.93, -1609.87, 2739.95, -1737.97 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = -62.0
+offset = -25.0
+remove_first = true
+
+[node name="Corner6Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 3308.34, -1929.08, 3201.7, -2027.17, 3122.77, -2100.28, 3045.43, -2169.67, 2972.86, -2232.18, 2877.17, -2304.11, 2803.17, -2352.61, 2720.67, -2397.11, 2639.17, -2428.61, 2578.67, -2444.11, 2514.17, -2455.11, 2449.17, -2458.61, 2384.17, -2455.11, 2328.67, -2447.61, 2268.67, -2431.61, 2211.17, -2409.61, 2153.17, -2381.61, 2089.67, -2339.11, 2037.67, -2295.11, 1990.67, -2247.61, 1945.67, -2191.61, 1913.83, -2146.16, 1867.78, -2067.41, 1823.34, -1976.82, 1786.34, -1889.37, 1761.12, -1819.58, 1723.73, -1703.92, 1697.51, -1614.02, 1672.04, -1524.87, 1651.81, -1452.95, 1634.58, -1392.27, 1586.68, -1234.4 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 62.0
+offset = -15.0
+remove_first = true
+
+[node name="Corner7Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 457.125, -989.248, 576.542, -877.471, 665.283, -794.032, 768.875, -698.926, 866.81, -617.255, 943.178, -560.687, 1008.58, -518.967, 1096.97, -472.652, 1167.68, -443.66, 1231.68, -424.922, 1300.27, -411.487, 1373.8, -405.83, 1443.81, -409.012, 1507.8, -417.851, 1575.33, -435.882, 1636.85, -460.631, 1710.74, -501.29, 1747.16, -527.453, 1805.85, -577.304, 1851.1, -624.326, 1904.14, -691.855, 1935.25, -738.878, 1979.44, -817.013, 2008.43, -875.703, 2040.96, -951.363, 2067.12, -1019.6, 2097.53, -1110.11, 2120.86, -1184.35, 2154.1, -1298.2, 2173.9, -1369.62, 2202.89, -1469.32, 2222.33, -1537.2, 2253.8, -1634.43 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 62.0
+offset = -19.5
+remove_first = true
+
+[node name="Corner8Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -269.348, -1558.5, -353.133, -1486.37, -416.504, -1418.83, -475.12, -1342.94, -527.561, -1263.53, -577.754, -1172.88, -614.463, -1097.96, -646.864, -1016.25, -677.102, -929.32, -696.486, -868.017, -713.457, -798.013, -729.267, -724.066, -741.88, -641.237 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 241.0
+offset = 17.0
+
+[node name="Corner9Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -271.077, 2487.88, -227.077, 2571.13, -185.454, 2637.13, -149.184, 2687.67, -108.157, 2739.99, -71.8867, 2779.83, -31.4541, 2822.64, 29.1958, 2875.56, 72.0078, 2909.45, 123.738, 2944.54, 179.631, 2976.64, 230.172, 3001.02, 293.201, 3026.59, 346.715, 3043.24, 411.526, 3057.51, 490.013, 3067.02, 577.236, 3065.85, 651.762, 3057.24, 739.797, 3034.61, 798.84, 3011.99, 844.449, 2991.13, 889.67, 2967.89, 925.972, 2946.77, 973.701, 2917.08, 1011.18, 2890.91 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 241.0
+offset = 17.0
+
+[node name="Corner10Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( 2321.99, 2879.01, 2355.23, 2939.82, 2379.27, 2989.32, 2401.19, 3035.28, 2416.04, 3077, 2432.3, 3115.89, 2448.57, 3161.15, 2466.95, 3215.59, 2478.97, 3258.73, 2491.7, 3311.05, 2500.19, 3352.06, 2511.84, 3412.95, 2518.3, 3456.73, 2528.4, 3561.68, 2532.61, 3648.11, 2532.02, 3701.58, 2529.78, 3754.02, 2526.03, 3801.96, 2521.54, 3842.42, 2511.8, 3906.1, 2498.31, 3974.27, 2482.58, 4039.45, 2467.6, 4094.14, 2454.86, 4131.59, 2429.05, 4202.29, 2408.42, 4252.3, 2382.23, 4308.65, 2355.24, 4360.24 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = -241.0
+offset = -19.5
+remove_first = true
+
+[node name="Corner11Extra" type="Line2D" parent="Objects/Tires/ExtraLayers"]
+position = Vector2( -3067.02, -436.949 )
+points = PoolVector2Array( -996.687, 4194.58, -1048.47, 4251.48, -1107.56, 4324.98, -1163, 4400.58, -1216.49, 4477.48, -1272.84, 4564.79, -1316.09, 4637.41, -1364.51, 4722.73, -1406.18, 4804.88, -1448.64, 4894.57, -1484.76, 4976.72, -1521.66, 5067.99, -1552.62, 5155.3, -1581.19, 5245.78, -1606.98, 5337.06, -1628.41, 5429.13, -1646.27, 5521.99, -1655.53, 5582.21, -1663.22, 5644.06, -1667.98, 5726.6 )
+width = 0.0
+script = ExtResource( 10 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 41.0
+scale_distance = 241.0
+offset = -25.0
+remove_first = true
+
+[node name="PauseLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="PauseMenu" parent="PauseLayer" instance=ExtResource( 4 )]
+pause_mode = 2
+visible = false
+
+[node name="FadeInLayer" type="CanvasLayer" parent="."]
+
+[node name="FadeIn" parent="FadeInLayer" instance=ExtResource( 8 )]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 5478.83, -6491.26 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 6305.02, -6496.11 )
+rotation = 1.5708
+shape = SubResource( 4 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls"]
+position = Vector2( -6549.78, -6473.68 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 6313.91, 7548.46 )
+rotation = 1.5708
+shape = SubResource( 6 )

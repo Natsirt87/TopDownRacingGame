@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Gameplay/lobby.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/exo.regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://Scenes/UI/MainMenu/Buttons/MenuButton.tscn" type="PackedScene" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Lobby" type="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -491.782, -229.492 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 120.0
+margin_bottom = 200.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.270588 )
+custom_constants/shadow_offset_y = 5
+text = "Lobby"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_top = 0.198
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 500.0
+margin_right = -500.0
+margin_bottom = -120.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Menu"]
+margin_right = 920.0
+margin_bottom = 14.0
+
+[node name="MainRow" type="HBoxContainer" parent="Menu"]
+margin_top = 64.0
+margin_right = 920.0
+margin_bottom = 630.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayerList" type="ItemList" parent="Menu/MainRow"]
+margin_right = 920.0
+margin_bottom = 566.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_constants/vseparation = 30
+
+[node name="Disconnect" parent="Menu" instance=ExtResource( 3 )]
+margin_top = 680.0
+margin_right = 920.0
+margin_bottom = 746.0
+text = "Disconnect"
+script = null
+[connection signal="pressed" from="Menu/Disconnect" to="." method="_on_disconnect"]

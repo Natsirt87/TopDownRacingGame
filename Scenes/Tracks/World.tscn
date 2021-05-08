@@ -1,0 +1,163 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Scripts/Gameplay/object_spline.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Objects/barrel_blue.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Objects/oil.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Objects/tree_small.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/grass.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/Objects/barrel_red.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/Objects/rock3.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/Objects/barrel_red_down.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Objects/cone_straight.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/Objects/tree_large.png" type="Texture" id=11]
+[ext_resource path="res://Sprites/racetrack.png" type="Texture" id=12]
+[ext_resource path="res://Scripts/Gameplay/player_controller.gd" type="Script" id=13]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24.7952, 27.1604 )
+
+[node name="World" type="Node2D"]
+
+[node name="Grass" type="Sprite" parent="."]
+position = Vector2( 1402.76, 154.458 )
+scale = Vector2( 10, 10 )
+texture = ExtResource( 6 )
+
+[node name="Track" type="Sprite" parent="."]
+position = Vector2( 1349.51, -180.97 )
+scale = Vector2( 4.25, 4.25 )
+texture = ExtResource( 12 )
+
+[node name="Objects" type="Node2D" parent="."]
+position = Vector2( 1361.99, 311.13 )
+
+[node name="barrel_red" type="Sprite" parent="Objects"]
+position = Vector2( 820.299, 1302.05 )
+texture = ExtResource( 7 )
+
+[node name="barrel_red_down" type="Sprite" parent="Objects"]
+position = Vector2( 805.643, 1427.65 )
+texture = ExtResource( 9 )
+
+[node name="cone_straight" type="Sprite" parent="Objects"]
+position = Vector2( -460.914, 1751.6 )
+texture = ExtResource( 10 )
+
+[node name="barrel_blue" type="Sprite" parent="Objects"]
+position = Vector2( 1015.59, 1334.59 )
+texture = ExtResource( 3 )
+
+[node name="rock3" type="Sprite" parent="Objects"]
+position = Vector2( 1110.96, 585.467 )
+texture = ExtResource( 8 )
+
+[node name="oil" type="Sprite" parent="Objects"]
+position = Vector2( 897.208, 1452.8 )
+texture = ExtResource( 4 )
+
+[node name="tree_large" type="Sprite" parent="Objects"]
+position = Vector2( -1203.63, 1616.03 )
+texture = ExtResource( 11 )
+
+[node name="tree_small" type="Sprite" parent="Objects"]
+position = Vector2( 1363.91, 370.405 )
+texture = ExtResource( 5 )
+
+[node name="tree_large2" type="Sprite" parent="Objects"]
+position = Vector2( -2584.28, 255.385 )
+texture = ExtResource( 11 )
+
+[node name="tree_large3" type="Sprite" parent="Objects"]
+position = Vector2( -1272.91, -1341.45 )
+texture = ExtResource( 11 )
+
+[node name="tree_large4" type="Sprite" parent="Objects"]
+position = Vector2( 1285.16, -220.148 )
+texture = ExtResource( 11 )
+
+[node name="tree_small2" type="Sprite" parent="Objects"]
+position = Vector2( 370.535, -1545.98 )
+texture = ExtResource( 5 )
+
+[node name="tree_small3" type="Sprite" parent="Objects"]
+position = Vector2( -30.6021, 464.448 )
+texture = ExtResource( 5 )
+
+[node name="tree_large5" type="Sprite" parent="Objects"]
+position = Vector2( 100.886, -2803.4 )
+texture = ExtResource( 11 )
+
+[node name="tree_small4" type="Sprite" parent="Objects"]
+position = Vector2( 2342.44, 1653.77 )
+texture = ExtResource( 5 )
+
+[node name="cone_straight2" type="Sprite" parent="Objects"]
+position = Vector2( -332.792, 1750.25 )
+texture = ExtResource( 10 )
+
+[node name="cone_straight3" type="Sprite" parent="Objects"]
+position = Vector2( -466.077, 1566.22 )
+texture = ExtResource( 10 )
+
+[node name="cone_straight4" type="Sprite" parent="Objects"]
+position = Vector2( -334.956, 1562.48 )
+texture = ExtResource( 10 )
+
+[node name="cone_straight5" type="Sprite" parent="Objects"]
+position = Vector2( -448.998, 1346.78 )
+texture = ExtResource( 10 )
+
+[node name="cone_straight6" type="Sprite" parent="Objects"]
+position = Vector2( -307.461, 1349.82 )
+texture = ExtResource( 10 )
+
+[node name="cone_straight7" type="Sprite" parent="Objects"]
+position = Vector2( -349.925, 1077.26 )
+texture = ExtResource( 10 )
+
+[node name="barrel_red2" type="Sprite" parent="Objects"]
+position = Vector2( 929.168, 1192.04 )
+texture = ExtResource( 7 )
+
+[node name="barrel_blue2" type="Sprite" parent="Objects"]
+position = Vector2( 1081.21, 1203.2 )
+texture = ExtResource( 3 )
+
+[node name="Sun" type="Node2D" parent="."]
+position = Vector2( 0.25, 0.25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 2009.7, 2198.43 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+position = Vector2( -0.529814, 1.05956 )
+scale = Vector2( 0.976453, 1.19264 )
+texture = ExtResource( 10 )
+
+[node name="PlayerController" type="Node2D" parent="."]
+position = Vector2( 1769.07, 2068.82 )
+script = ExtResource( 13 )
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2( -2031.97, -1051.98 )
+points = PoolVector2Array( 2427.98, 4729.21, 5085.21, 4635.03 )
+width = 0.0
+default_color = Color( 0.4, 0.501961, 1, 0 )
+script = ExtResource( 1 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 39.0
+scale_distance = 100.0
+
+[node name="Line2D2" type="Line2D" parent="."]
+position = Vector2( -2031.97, -1051.98 )
+points = PoolVector2Array( 2427.98, 4729.21, 5085.21, 4635.03 )
+width = 0.0
+default_color = Color( 0.4, 0.501961, 1, 0 )
+script = ExtResource( 1 )
+object = "res://Scenes/Objects/TireTexture.tscn"
+distance = 39.0
+scale_distance = 139.0
+offset = 19.5

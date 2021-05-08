@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Gameplay/vehicle.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Vehicles/wheel.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Gameplay/wheel.gd" type="Script" id=3]
+[ext_resource path="res://Sprites/Vehicles/car.png" type="Texture" id=4]
+
+
+
+
+
+
+
+[sub_resource type="PhysicsMaterial" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 28.8085, 52.9439 )
+
+[node name="Car" type="RigidBody2D"]
+physics_material_override = SubResource( 1 )
+linear_damp = 0.0
+angular_damp = 0.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+grip = 0.7
+traction_limit = 3.5
+braking_force = 1.8
+steering_speed = 0.2
+
+[node name="Wheels" type="Node2D" parent="."]
+
+[node name="FL" type="Sprite" parent="Wheels"]
+position = Vector2( -30, -30 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+wheel_name = "FL"
+front = true
+is_steering = true
+max_angle = 25.0
+
+[node name="FR" type="Sprite" parent="Wheels"]
+position = Vector2( 30.236, -30 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+wheel_name = "FR"
+front = true
+is_steering = true
+max_angle = 25.0
+
+[node name="RL" type="Sprite" parent="Wheels"]
+position = Vector2( -30, 35 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+wheel_name = "RL"
+power = 3.0
+
+[node name="RR" type="Sprite" parent="Wheels"]
+position = Vector2( 30, 35 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+wheel_name = "RR"
+power = 3.0
+
+[node name="Body" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.498039 )
+z_index = 1
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 2
+shape = SubResource( 2 )

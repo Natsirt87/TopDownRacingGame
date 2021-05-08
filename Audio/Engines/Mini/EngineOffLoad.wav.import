@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/EngineOffLoad.wav-880e6e1b58cf1bfe84fb04a3f1bfa963.sample"
+
+[deps]
+
+source_file="res://Audio/Engines/Mini/EngineOffLoad.wav"
+dest_files=[ "res://.import/EngineOffLoad.wav-880e6e1b58cf1bfe84fb04a3f1bfa963.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

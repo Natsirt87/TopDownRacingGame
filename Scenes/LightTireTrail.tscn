@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Effects/tire_trail.gd" type="Script" id=1]
+
+
+
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.674847, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 0.160784, 0.160784, 0.160784, 0.305882, 0, 0, 0, 0 )
+
+[node name="TireTrail" type="Line2D"]
+z_index = -1
+default_color = Color( 0, 0, 0, 0.470588 )
+gradient = SubResource( 1 )
+joint_mode = 2
+script = ExtResource( 1 )
+is_light = true
