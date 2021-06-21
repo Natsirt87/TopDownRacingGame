@@ -5,6 +5,7 @@ class_name Vehicle
 var automatic = false
 var steering_speed
 var steering_speed_decay
+var countersteer_assist
 
 
 export(float) var drag = 0.26
@@ -15,7 +16,7 @@ export var rear_downforce = 0.0
 export var handbrake_multiplier = 2.0
 export(float, -1, 1) var weight_bias = 0
 export(float, -1, 1) var suspension_setup = 0
-export(float, -1, 1) var steering_speed_decay_modifier = 066
+export(float, -1, 1) var steering_speed_decay_modifier = 0
 export(float, 0, 2) var steering_sensitivity_modifier = 1.0
 export var dual_clutch = false
 export var redline = 7000
@@ -40,6 +41,8 @@ var clutch_in = false # if the clutch is in
 var shifting = false # if the car is in the process of shifting
 var in_neutral = false # if the transmission is in neutral
 var hitting_redline = false
+var rear_left_traction = true
+var rear_right_traction = true
 
 # input variables, set by controller
 var throttle_input = 0
@@ -86,6 +89,7 @@ func _ready():
 	get_tree().set_group(wheel_group, "traction_limit", traction_limit)
 	get_tree().set_group(wheel_group, "braking_force", braking_force)
 	get_tree().set_group(wheel_group, "steering_speed", steering_speed * steering_sensitivity_modifier)
+	get_tree().set_group(wheel_group, "countersteer_assist", countersteer_assist)
 	get_tree().set_group(wheel_group, "ABS", ABS)
 	get_tree().call_group(wheel_group, "setup_suspension", suspension_setup)
 	get_tree().call_group(wheel_group, "set_grip_balance", weight_bias)
@@ -98,7 +102,7 @@ func _ready():
 			i.downforce = rear_downforce
 
 
-func _process(delta):
+func _process(_delta):
 	# update direction vectors
 	right = global_transform.x.normalized()
 	forward = -global_transform.y.normalized()
@@ -112,7 +116,7 @@ func _process(delta):
 	speed = (linear_velocity.length() * 0.08) / 1.46666667
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# handle managing and fading between engine audio samples
 	_handle_engine_audio()
 	
@@ -197,12 +201,10 @@ func _process_input():
 	
 	
 	# steering input
-	# steering_input /= 0.006 * (steering_speed_decay * steering_speed_decay_modifier) * linear_velocity.length() + 1.0
 	var decay = steering_speed_decay - steering_speed_decay_modifier
 	steering_input /= decay * pow(6, linear_velocity.length() / 3000) - (decay - 1)
 	
-	get_tree().call_group(wheel_group, "steer", steering_input)
-	
+	get_tree().call_group(wheel_group, "steer", steering_input, !(rear_left_traction and rear_right_traction))
 	
 	if automatic:
 		if rpm / redline >= 0.975 and gear != 0 and !in_neutral:

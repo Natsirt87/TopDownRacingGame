@@ -4,11 +4,15 @@ extends Area2D
 export var wheel_name = "" # the name of the wheel, for debugging purposes
 export var front = false # if these wheel is a front wheel
 export var is_steering = false  # wether a wheel responds to steering input
-export var max_angle = 0.0  # maximum anngle the wheel can steer to
+export var max_angle = 0.0  # maximum angle the wheel can steer to
 export var power = 0.0  # how much a wheel responds to drive input
+
+# constants
+const slide_angle_increase = 15
 
 # public variables
 var steering_speed = 0.0  # how fast the wheel steers, set by vehicle.gd
+var countersteer_assist = 0.0 # the amount of assistance provided for counter-steering in a slide, set by vehicle.gd
 var grip = 1.0 # modifier for the force the tire exerts, changed by weight shift and suspension
 var traction_limit = 0.0 # traction limit of the tire, set by vehicle.gd
 var braking_force = 0.0 # how powerfully this wheel can brake, determined by vehicle.gd
@@ -16,7 +20,7 @@ var long_acceleration = 0.0 # longitudinal acceleration the vehicle is under, se
 var ABS = true # if the car has anti-lock brakes, set by Vehicle.gd
 var downforce = 0.0 # how much downforce the wheel is effected by
 var wheel_locked = false # if the wheel is currently locked by the handbrake
-var handbrake_multiplier = 0.0
+var handbrake_multiplier = 0.0 # How much the handbrake changes the grip of the rear tires, set by vehicle.gd
 
 # private variables
 var _effective_grip = 0.0 # the actual grip of the tire
@@ -83,11 +87,17 @@ func set_grip_balance(grip_balance):
 		traction_limit -= (traction_limit /4) * grip_balance
 
 
-func steer(steering_input):
+func steer(steering_input, counter_steer):
 	if is_steering:
 		var desired_angle = steering_input * max_angle
+		
+		if counter_steer:
+			desired_angle = steering_input * (max_angle + slide_angle_increase)
+			desired_angle = clamp(countersteer_assist * (forward.angle_to(linear_velocity) * (180 / PI)) + desired_angle, -max_angle - slide_angle_increase, max_angle + slide_angle_increase)
+		
 		var new_angle = lerp(rotation_degrees, desired_angle, steering_speed)
 		rotation_degrees = new_angle
+		
 
 
 func drive(throttle_input):
@@ -162,6 +172,7 @@ func apply_wheel_forces():
 	
 	_shift_weight()
 	_apply_downforce()
+	_set_rear_traction()
 	
 	# determine how much traction the wheel is being asked to provide
 	_desired_traction += abs(desired_lateral_force.length())
@@ -257,6 +268,12 @@ func _shift_weight():
 func _apply_downforce():
 	_applied_downforce = 0.5 * downforce * pow(linear_velocity.length(), 2)
 	_applied_downforce /= 170
+
+func _set_rear_traction():
+	if wheel_name == "RR":
+		vehicle.rear_right_traction = _has_traction
+	elif wheel_name == "RL":
+		vehicle.rear_left_traction = _has_traction
 
 
 func _set_wheel_speed(throttle_input):

@@ -34,22 +34,22 @@ __meta__ = {
 
 [node name="Career" parent="Menu" instance=ExtResource( 2 )]
 margin_right = 442.0
-margin_bottom = 66.0
+margin_bottom = 60.0
 disabled = true
 text = "Career"
 scene = "res://Scenes/UI/MainMenu/SingeplayerScreen.tscn"
 
 [node name="Multiplayer" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 106.0
+margin_top = 100.0
 margin_right = 442.0
-margin_bottom = 172.0
+margin_bottom = 160.0
 text = "Multiplayer"
 scene = "res://Scenes/UI/MainMenu/MultiplayerScreen.tscn"
 
 [node name="CustomSession" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 212.0
+margin_top = 200.0
 margin_right = 442.0
-margin_bottom = 278.0
+margin_bottom = 260.0
 focus_neighbour_bottom = NodePath("../Settings")
 focus_mode = 2
 enabled_focus_mode = 2
@@ -57,16 +57,16 @@ text = "Custom Session"
 scene = "res://Scenes/UI/MainMenu/CustomSession.tscn"
 
 [node name="Garage" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 318.0
+margin_top = 300.0
 margin_right = 442.0
-margin_bottom = 384.0
+margin_bottom = 360.0
 disabled = true
 text = "Garage"
 
 [node name="Settings" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 424.0
+margin_top = 400.0
 margin_right = 442.0
-margin_bottom = 490.0
+margin_bottom = 460.0
 focus_neighbour_top = NodePath("../CustomSession")
 focus_neighbour_bottom = NodePath("../Quit")
 focus_mode = 2
@@ -75,9 +75,9 @@ text = "Settings"
 scene = "res://Scenes/UI/MainMenu/SettingsScreen.tscn"
 
 [node name="Quit" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 530.0
+margin_top = 500.0
 margin_right = 442.0
-margin_bottom = 596.0
+margin_bottom = 560.0
 focus_neighbour_top = NodePath("../Settings")
 focus_mode = 2
 enabled_focus_mode = 2
@@ -85,7 +85,7 @@ text = "Quit"
 scene = "Quit"
 
 [node name="VersionLabel" type="Label" parent="Menu"]
-margin_top = 636.0
+margin_top = 600.0
 margin_right = 442.0
 margin_bottom = 720.0
 size_flags_horizontal = 3

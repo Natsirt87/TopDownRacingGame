@@ -57,7 +57,7 @@ __meta__ = {
 
 [node name="Padding2" type="Label" parent="Menu"]
 margin_right = 270.0
-margin_bottom = 14.0
+margin_bottom = 22.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -65,9 +65,9 @@ __meta__ = {
 }
 
 [node name="NameContainer" type="HBoxContainer" parent="Menu"]
-margin_top = 114.0
+margin_top = 122.0
 margin_right = 270.0
-margin_bottom = 149.0
+margin_bottom = 157.0
 
 [node name="Label" type="Label" parent="Menu/NameContainer"]
 margin_right = 101.0
@@ -83,9 +83,9 @@ size_flags_horizontal = 3
 custom_fonts/font = SubResource( 3 )
 
 [node name="Join" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 249.0
+margin_top = 257.0
 margin_right = 270.0
-margin_bottom = 315.0
+margin_bottom = 317.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 disabled = true
@@ -93,9 +93,9 @@ text = "Join Game"
 script = null
 
 [node name="Host" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 415.0
+margin_top = 417.0
 margin_right = 270.0
-margin_bottom = 481.0
+margin_bottom = 477.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 disabled = true
@@ -103,9 +103,9 @@ text = "Host Game"
 script = null
 
 [node name="Padding" type="Label" parent="Menu"]
-margin_top = 581.0
+margin_top = 577.0
 margin_right = 270.0
-margin_bottom = 595.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -113,8 +113,8 @@ __meta__ = {
 }
 
 [node name="Back" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 695.0
+margin_top = 700.0
 margin_right = 270.0
-margin_bottom = 761.0
+margin_bottom = 760.0
 text = "Back"
 scene = "res://Scenes/UI/MainMenu/TitleScreen.tscn"

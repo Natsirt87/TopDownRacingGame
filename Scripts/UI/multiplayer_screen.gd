@@ -33,8 +33,7 @@ func _on_join():
 	var current_scene = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
 	current_scene.queue_free()
 	lobby.visible = true
-	
-	
+
 
 func _on_host():
 	print("hosting")

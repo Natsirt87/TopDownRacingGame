@@ -2,13 +2,16 @@ extends Node2D
 class_name RaceManager
 
 export var starting_points = []
+export var networked = false
 
+# 0 = practice, 1 = qualifying, 2 = race
 var mode
 
 var _drivers: Array = []
 var _num_checkpoints
 
 onready var save_system = get_node("/root/SaveSystem")
+onready var lobby = get_node("/root/Lobby")
 
 class Driver:
 	var driver_name = ""
@@ -69,9 +72,13 @@ class Driver:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mode = save_system.load_cfg_value("Session", "Mode")
-	
+	if not networked:
+		init()
+
+
+func init():
 	_num_checkpoints = $Checkpoints.get_child_count()
-	var drivers_node = get_node("/root/" + get_node("/root/SceneSwitcher").current_scene.name + "/Drivers")
+	var drivers_node = get_node("/root/World/Drivers")
 	
 	for i in drivers_node.get_children():
 		_drivers.append(Driver.new(i))
@@ -80,15 +87,19 @@ func _ready():
 		for j in _drivers:
 			j.completed_checkpoints.append(false)
 	
-	if mode == 0:
+	if networked:
+		for i in _drivers:
+			i.starting_pos = i.controller.starting_pos
+	else:
 		for i in range(_drivers.size()):
 			_drivers[i].starting_pos = i + 1
 	
 	for i in _drivers:
+		print(i.starting_pos)
 		i.controller.set_global_position(get_node(starting_points[i.starting_pos - 1]).get_global_position())
 		i.controller.set_global_rotation(get_node(starting_points[i.starting_pos - 1]).get_global_rotation())
-#		i.controller.get_child(0).set_global_position(get_node(starting_points[i.starting_pos - 1]).get_global_position())
-#		i.controller.get_child(0).set_global_rotation(get_node(starting_points[i.starting_pos - 1]).get_global_rotation())
+		if not networked: i.controller.init()
+		i.controller.create_vehicle()
 
 
 func _process(delta):

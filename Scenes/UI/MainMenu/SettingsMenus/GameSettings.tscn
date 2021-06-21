@@ -43,13 +43,13 @@ __meta__ = {
 
 [node name="MiddleStuff" type="HBoxContainer" parent="Menu"]
 margin_right = 619.0
-margin_bottom = 539.0
+margin_bottom = 545.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Labels" type="VBoxContainer" parent="Menu/MiddleStuff"]
 margin_right = 404.0
-margin_bottom = 539.0
+margin_bottom = 545.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 75
@@ -83,10 +83,20 @@ custom_fonts/font = ExtResource( 4 )
 text = "Speed Sensitivity:"
 align = 2
 
-[node name="CameraZoom" type="Label" parent="Menu/MiddleStuff/Labels"]
+[node name="CounterSteer" type="Label" parent="Menu/MiddleStuff/Labels"]
 margin_top = 354.0
 margin_right = 404.0
 margin_bottom = 397.0
+hint_tooltip = "How sensitive the steering is at speed"
+mouse_filter = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Countersteer Assist:"
+align = 2
+
+[node name="CameraZoom" type="Label" parent="Menu/MiddleStuff/Labels"]
+margin_top = 472.0
+margin_right = 404.0
+margin_bottom = 515.0
 hint_tooltip = "How quickly the camera zooms in and out"
 mouse_filter = 0
 custom_fonts/font = ExtResource( 4 )
@@ -96,7 +106,7 @@ align = 2
 [node name="Values" type="VBoxContainer" parent="Menu/MiddleStuff"]
 margin_left = 408.0
 margin_right = 619.0
-margin_bottom = 539.0
+margin_bottom = 545.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 93
@@ -113,7 +123,7 @@ text = ""
 [node name="Sliders" type="VBoxContainer" parent="Menu/MiddleStuff/Values"]
 margin_top = 133.0
 margin_right = 211.0
-margin_bottom = 387.0
+margin_bottom = 506.0
 custom_constants/separation = 103
 
 [node name="Sens" parent="Menu/MiddleStuff/Values/Sliders" instance=ExtResource( 5 )]
@@ -129,10 +139,16 @@ margin_right = 211.0
 margin_bottom = 135.0
 value = 0.33
 
-[node name="Zoom" parent="Menu/MiddleStuff/Values/Sliders" instance=ExtResource( 5 )]
+[node name="Counter" parent="Menu/MiddleStuff/Values/Sliders" instance=ExtResource( 5 )]
 margin_top = 238.0
 margin_right = 211.0
 margin_bottom = 254.0
+value = 0.33
+
+[node name="Zoom" parent="Menu/MiddleStuff/Values/Sliders" instance=ExtResource( 5 )]
+margin_top = 357.0
+margin_right = 211.0
+margin_bottom = 373.0
 size_flags_vertical = 1
 min_value = 0.1
 max_value = 0.9
@@ -140,7 +156,7 @@ value = 0.35
 tick_count = 9
 
 [node name="Back" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 574.0
+margin_top = 580.0
 margin_right = 619.0
 margin_bottom = 640.0
 text = "Back"

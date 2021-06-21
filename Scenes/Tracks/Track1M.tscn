@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Textures/Grass/grass09.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Tracks/Track1.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Scenes/UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scripts/Gameplay/race_manager.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Gameplay/checkpoint.gd" type="Script" id=6]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/UI/MainMenu/FadeIn.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Shaders/noise_mask.shader" type="Shader" id=9]
 [ext_resource path="res://Scripts/Gameplay/object_spline.gd" type="Script" id=10]
@@ -94,32 +93,41 @@ position = Vector2( 0.5, 0.5 )
 [node name="StartingPoints" type="Node2D" parent="."]
 
 [node name="Position1" type="Node2D" parent="StartingPoints"]
-position = Vector2( -1187.46, 5941.35 )
+position = Vector2( -1020, 5932 )
 rotation = 1.5708
 
 [node name="Position2" type="Node2D" parent="StartingPoints"]
-position = Vector2( -1412.07, 6242.24 )
+position = Vector2( -1240, 6232 )
 rotation = 1.5708
 
 [node name="Position3" type="Node2D" parent="StartingPoints"]
-position = Vector2( -1594.29, 5945.59 )
+position = Vector2( -1460, 5932 )
 rotation = 1.5708
 
 [node name="Position4" type="Node2D" parent="StartingPoints"]
-position = Vector2( -1853.45, 6233.98 )
+position = Vector2( -1680, 6232 )
 rotation = 1.5708
 
 [node name="Position5" type="Node2D" parent="StartingPoints"]
-position = Vector2( -2085.54, 5937.99 )
+position = Vector2( -1900, 5932 )
 rotation = 1.5708
 
 [node name="Position6" type="Node2D" parent="StartingPoints"]
-position = Vector2( -2331.08, 6223.89 )
+position = Vector2( -2120, 6232 )
+rotation = 1.5708
+
+[node name="Position7" type="Node2D" parent="StartingPoints"]
+position = Vector2( -2340, 5932 )
+rotation = 1.5708
+
+[node name="Position8" type="Node2D" parent="StartingPoints"]
+position = Vector2( -2560, 6232 )
 rotation = 1.5708
 
 [node name="RaceManager" type="Node2D" parent="."]
 script = ExtResource( 5 )
-starting_points = [ NodePath("../StartingPoints/Position1") ]
+starting_points = [ NodePath("../StartingPoints/Position1"), NodePath("../StartingPoints/Position2"), NodePath("../StartingPoints/Position3"), NodePath("../StartingPoints/Position4"), NodePath("../StartingPoints/Position5"), NodePath("../StartingPoints/Position6"), NodePath("../StartingPoints/Position7"), NodePath("../StartingPoints/Position8") ]
+networked = true
 
 [node name="Checkpoints" type="Node2D" parent="RaceManager"]
 
@@ -778,8 +786,6 @@ rotation = -6.10577
 shape = SubResource( 2 )
 
 [node name="Drivers" type="Node2D" parent="."]
-
-[node name="Player" parent="Drivers" instance=ExtResource( 7 )]
 
 [node name="Objects" type="Node2D" parent="."]
 

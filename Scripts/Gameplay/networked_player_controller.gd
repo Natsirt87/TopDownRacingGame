@@ -1,0 +1,3 @@
+extends PlayerController
+class_name NetworkedPlayerController
+

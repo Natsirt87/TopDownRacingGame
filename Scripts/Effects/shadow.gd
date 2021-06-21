@@ -11,8 +11,7 @@ var _done = false
 
 
 onready var scene_switcher = get_node("/root/SceneSwitcher")
-onready var scene_root = scene_switcher.current_scene.name
-onready var sun = get_node("/root/" + scene_root + "/Sun")
+onready var sun = get_node("/root/World/Sun")
 
 # local direction vectors
 onready var forward = global_transform.y.normalized()

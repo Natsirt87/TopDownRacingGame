@@ -5,6 +5,7 @@ onready var restart = $Menu/Restart
 onready var quit = $Menu/Quit
 onready var scene_switcher = get_node("/root/SceneSwitcher")
 onready var save_system = get_node("/root/SaveSystem")
+onready var lobby = get_node("/root/Lobby")
 
 
 func _ready():
@@ -15,7 +16,8 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("pause"):
-		get_tree().paused = !get_tree().paused
+		if not lobby.game_started:
+			get_tree().paused = !get_tree().paused
 		visible = !visible
 	elif event.is_action_pressed("ui_cancel") and get_tree().paused:
 		get_tree().paused = false
@@ -29,11 +31,12 @@ func _on_resume():
 
 
 func _on_restart():
-	var path = "res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + ".tscn"
-	scene_switcher.goto_scene(path, false)
-	get_tree().paused = false
+	_on_resume()
 
 
 func _on_quit():
 	get_tree().paused = false
-	scene_switcher.goto_scene("res://Scenes/UI/MainMenu/TitleScreen.tscn", false)
+	if lobby.game_started:
+		lobby.on_disconnect()
+	else:
+		get_tree().change_scene("res://Scenes/UI/MainMenu/TitleScreen.tscn")

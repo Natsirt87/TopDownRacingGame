@@ -13,5 +13,4 @@ func _on_pressed():
 	if scene == "Quit":
 		get_tree().quit()
 	else:
-		scene_switcher.goto_scene(scene, false)
-		#get_tree().change_scene(scene)
+		get_tree().change_scene(scene)

@@ -1,47 +1,90 @@
 extends Control
 
-
 onready var scene_switcher = get_node("/root/SceneSwitcher")
 onready var player_list : ItemList = $Menu/MainRow/PlayerList
+onready var save_system = get_node("/root/SaveSystem")
+
+# player info, ID associated to data
+var player_info = {}
+var my_info = {name = "", ready = false, starting_pos = -1}
+var clients_loaded = []
+var server_loaded = false
+var game_started = false
 
 # connect all those dang functions 
-
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	
+	_set_info()
 
-# player info, ID associated to data
-var player_info = {}
-
-# info to be sent to other player
-var my_info = {}
+func _set_info():
+	my_info["car"] = save_system.load_cfg_value("Session", "Car")
+	my_info["auto"] = save_system.load_cfg_value("Game", "Automatic")
+	my_info["steer_sens"] = save_system.load_cfg_value("Game", "SteeringSensitivity")
+	my_info["steer_decay"] = save_system.load_cfg_value("Game", "SteeringSpeedDecay")
+	my_info["ctrsteer_assist"] = save_system.load_cfg_value("Game", "CountersteerAssist")
 
 func set_name(new_name):
 	my_info["name"] = new_name
 	player_list.add_item(new_name, null, false)
 
+
 func _player_connected(id):
 	# called on both clients and server when peer connects. Send my info to it
 	rpc_id(id, "register_player", my_info)
 
+
 func _player_disconnected(id):
-	player_list.remove_item(player_info[id]["idx"])
+	if not game_started:
+		player_list.remove_item(player_info[id]["idx"])
+	
 	player_info.erase(id) # delete player info
+
 
 func _connected_ok():
 	print("Connected successfully")
+
 
 func _server_disconnected():
 	visible = false
 	print("Kicked from server, uh-oh")
 	_go_back()
 
+
 func _connected_fail():
 	visible = false
 	print("Unable to connect to server")
+	_go_back()
+
+
+func _go_back():
+	if game_started:
+		get_node("/root/World").queue_free()
+		game_started = false
+	
+	get_tree().change_scene("res://Scenes/UI/MainMenu/MultiplayerScreen.tscn")
+	player_info.clear()
+	player_list.clear()
+
+
+func _on_ready_toggled(button_pressed):
+	my_info["ready"] = button_pressed
+	rpc("update_player", my_info)
+	for p in player_info:
+		if player_info[p]["ready"] == false:
+			return
+	
+	if my_info["ready"]:
+		rpc_id(1, "start_game")
+
+
+func on_disconnect():
+	get_tree().network_peer = null
+	visible = false
 	_go_back()
 
 
@@ -52,18 +95,89 @@ remote func register_player(info):
 	player_info[id] = info
 	player_list.add_item(info["name"], null, false)
 	player_info[id]["idx"] = player_list.get_item_count() - 1
-	print(player_info)
 
 
-func _on_disconnect():
-	get_tree().network_peer = null
-	visible = false
-	_go_back()
-
-func _go_back():
-	scene_switcher.goto_scene("res://Scenes/UI/MainMenu/MultiplayerScreen.tscn", false, false)
-	player_info.clear()
+remote func update_player(info):
+	var id = get_tree().get_rpc_sender_id()
+	player_info[id] = info
 	
-	player_list.clear()
-	
+	if get_tree().is_network_server() and my_info["starting_pos"] != -1:
+		for p in player_info:
+			if player_info[p]["starting_pos"] == -1:
+				return
+		
+		rpc("pre_configure_game")
+
+
+remotesync func start_game():
+	if get_tree().is_network_server():
+		var starting_positions = []
+		for i in player_info.size() + 1:
+			starting_positions.append(i + 1)
+		
+		starting_positions.shuffle()
+		
+		my_info["starting_pos"] = starting_positions[0]
+		rpc("update_player", my_info)
+		
+		var itr = 1
+		for p in player_info:
+			rpc_id(p, "set_starting_pos", starting_positions[itr])
+			itr += 1
+
+
+remote func set_starting_pos(pos):
+	my_info["starting_pos"] = pos
+	rpc("update_player", my_info)
+
+
+remotesync func pre_configure_game():
+	get_tree().set_pause(true)
+	var selfPeerID = get_tree().get_network_unique_id()
 	print(player_info)
+	# load world
+	var levelPath = "res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + "M.tscn"
+	var world = load(levelPath).instance()
+	get_node("/root").add_child(world)
+	
+	# load player
+	var player = preload("res://Scenes/NetworkedPlayer.tscn").instance()
+	player.set_name(str(selfPeerID))
+	player.set_network_master(selfPeerID)
+	get_node("/root/World/Drivers").add_child(player)
+	player.init()
+	player.starting_pos = my_info["starting_pos"]
+	
+	# load other players
+	for p in player_info:
+		var peer = preload("res://Scenes/NetworkedPeer.tscn").instance()
+		peer.set_name(str(p))
+		peer.set_network_master(p)
+		get_node("/root/World/Drivers").add_child(peer)
+		peer.init(0)
+		peer.starting_pos = player_info[p]["starting_pos"]
+	
+	if get_tree().is_network_server():
+		server_loaded = true
+	else:
+		rpc_id(1, "done_preconfiguring")
+
+
+remote func done_preconfiguring():
+	var who = get_tree().get_rpc_sender_id()
+	assert(get_tree().is_network_server())
+	assert(who in player_info)
+	assert(not who in clients_loaded)
+	
+	clients_loaded.append(who)
+	if clients_loaded.size() == player_info.size() and server_loaded:
+		rpc("post_configure_game")
+
+
+remotesync func post_configure_game():
+	if get_tree().get_rpc_sender_id() == 1:
+		get_tree().set_pause(false)
+		game_started = true
+		get_node("/root/World/RaceManager").init()
+		visible = false
+		my_info["ready"] = false

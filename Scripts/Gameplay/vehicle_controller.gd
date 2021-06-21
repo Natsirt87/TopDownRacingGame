@@ -3,7 +3,7 @@ class_name VehicleController
 
 
 var automatic
-
+var starting_pos
 var _cars = ["Mini", "RX-7", "Alfa"]
 
 

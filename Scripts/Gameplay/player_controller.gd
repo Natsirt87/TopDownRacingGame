@@ -4,6 +4,7 @@ class_name PlayerController
 
 var steering_speed
 var steering_speed_decay
+var countersteer_assist
 var hud
 var vehicle : Vehicle
 
@@ -12,14 +13,17 @@ var _lap_valid = false
 var _vehicle_speed = 0.0
 
 
-onready var save_system = get_node("/root/SaveSystem")
+var save_system
 
-func _ready():
+
+func init():
+	print("ready")
+	save_system = get_node("/root/SaveSystem")
 	automatic = save_system.load_cfg_value("Game", "Automatic")
 	steering_speed = save_system.load_cfg_value("Game", "SteeringSensitivity")
 	steering_speed_decay = save_system.load_cfg_value("Game", "SteeringSpeedDecay")
+	countersteer_assist = save_system.load_cfg_value("Game", "CountersteerAssist")
 	
-	_create_vehicle()
 	
 	hud = load("res://Scenes/UI/DebugHUD.tscn").instance()
 	add_child(hud)
@@ -27,7 +31,7 @@ func _ready():
 
 # instantiates a vehicle for the controller to control
 
-func _create_vehicle():
+func create_vehicle():
 	var vehicle_name = _cars[save_system.load_cfg_value("Session", "Car")]
 	var vehicle_resource = load("res://Vehicles/Cars/" + vehicle_name + ".tscn")
 	vehicle = vehicle_resource.instance()
@@ -35,6 +39,7 @@ func _create_vehicle():
 	vehicle.automatic = automatic
 	vehicle.steering_speed = steering_speed
 	vehicle.steering_speed_decay = steering_speed_decay
+	vehicle.countersteer_assist = countersteer_assist
 	add_child(vehicle)
 	
 	

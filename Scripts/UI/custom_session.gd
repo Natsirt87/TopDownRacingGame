@@ -40,8 +40,8 @@ func _ready():
 
 
 func _on_start():
-	var path = "res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + ".tscn"
-	scene_switcher.goto_scene(path, true)
+	var levelPath = "res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + ".tscn"
+	get_tree().change_scene(levelPath)
 
 
 func _set_car_stats():
