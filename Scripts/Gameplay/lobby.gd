@@ -1,6 +1,6 @@
+
 extends Control
 
-onready var scene_switcher = get_node("/root/SceneSwitcher")
 onready var player_list : ItemList = $Menu/MainRow/PlayerList
 onready var save_system = get_node("/root/SaveSystem")
 
@@ -19,9 +19,9 @@ func _ready():
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
-	_set_info()
+	set_info()
 
-func _set_info():
+func set_info():
 	my_info["car"] = save_system.load_cfg_value("Session", "Car")
 	my_info["auto"] = save_system.load_cfg_value("Game", "Automatic")
 	my_info["steer_sens"] = save_system.load_cfg_value("Game", "SteeringSensitivity")
@@ -39,10 +39,14 @@ func _player_connected(id):
 
 
 func _player_disconnected(id):
-	if not game_started:
+	player_info.erase(id) # delete player info
+	if  game_started:
+		var driver = get_node_or_null("/root/World/Drivers/" + str(id))
+		if driver != null:
+			driver.queue_free()
+	else:
 		player_list.remove_item(player_info[id]["idx"])
 	
-	player_info.erase(id) # delete player info
 
 
 func _connected_ok():
@@ -65,6 +69,15 @@ func _go_back():
 	if game_started:
 		get_node("/root/World").queue_free()
 		game_started = false
+		if get_tree().is_network_server():
+			get_tree().refuse_new_network_connections = false
+	
+	my_info["ready"] = false
+	my_info["starting_pos"] = -1
+	$Menu/Ready.pressed = false
+	server_loaded = false
+	clients_loaded = []
+	player_info = {}
 	
 	get_tree().change_scene("res://Scenes/UI/MainMenu/MultiplayerScreen.tscn")
 	player_info.clear()
@@ -105,7 +118,7 @@ remote func update_player(info):
 		for p in player_info:
 			if player_info[p]["starting_pos"] == -1:
 				return
-		
+		get_tree().refuse_new_network_connections = true
 		rpc("pre_configure_game")
 
 
@@ -136,7 +149,7 @@ remotesync func pre_configure_game():
 	var selfPeerID = get_tree().get_network_unique_id()
 	print(player_info)
 	# load world
-	var levelPath = "res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + "M.tscn"
+	var levelPath = "res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + ".tscn"
 	var world = load(levelPath).instance()
 	get_node("/root").add_child(world)
 	
@@ -154,8 +167,13 @@ remotesync func pre_configure_game():
 		peer.set_name(str(p))
 		peer.set_network_master(p)
 		get_node("/root/World/Drivers").add_child(peer)
-		peer.init(0)
+		
+		# setting all of the player data to the correct values for each peer
 		peer.starting_pos = player_info[p]["starting_pos"]
+		peer.steering_speed = player_info[p]["steer_sens"]
+		peer.steering_speed_decay = player_info[p]["steer_decay"]
+		peer.countersteer_assist = player_info[p]["ctrsteer_assist"]
+		peer.init(player_info[p]["car"])
 	
 	if get_tree().is_network_server():
 		server_loaded = true
@@ -180,4 +198,3 @@ remotesync func post_configure_game():
 		game_started = true
 		get_node("/root/World/RaceManager").init()
 		visible = false
-		my_info["ready"] = false

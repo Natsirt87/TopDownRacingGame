@@ -10,12 +10,12 @@ use_filter = true
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 35
+size = 50
 use_filter = true
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 30
+size = 40
 use_filter = true
 font_data = ExtResource( 1 )
 
@@ -43,9 +43,9 @@ __meta__ = {
 [node name="Menu" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 825.0
+margin_left = 700.0
 margin_top = 200.0
-margin_right = -825.0
+margin_right = -700.0
 margin_bottom = -120.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -56,8 +56,8 @@ __meta__ = {
 }
 
 [node name="Padding2" type="Label" parent="Menu"]
-margin_right = 270.0
-margin_bottom = 22.0
+margin_right = 520.0
+margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -65,37 +65,52 @@ __meta__ = {
 }
 
 [node name="NameContainer" type="HBoxContainer" parent="Menu"]
-margin_top = 122.0
-margin_right = 270.0
-margin_bottom = 157.0
+margin_top = 115.0
+margin_right = 520.0
+margin_bottom = 165.0
 
 [node name="Label" type="Label" parent="Menu/NameContainer"]
-margin_right = 101.0
-margin_bottom = 35.0
+margin_right = 145.0
+margin_bottom = 50.0
+size_flags_vertical = 3
 custom_fonts/font = SubResource( 2 )
 text = "Name:"
 
 [node name="Name" type="TextEdit" parent="Menu/NameContainer"]
-margin_left = 105.0
-margin_right = 270.0
-margin_bottom = 35.0
+margin_left = 149.0
+margin_right = 520.0
+margin_bottom = 50.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 3 )
 
-[node name="Join" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 257.0
-margin_right = 270.0
-margin_bottom = 317.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="JoinContainer" type="HBoxContainer" parent="Menu"]
+margin_top = 265.0
+margin_right = 520.0
+margin_bottom = 325.0
+custom_constants/separation = 13
+
+[node name="Join" parent="Menu/JoinContainer" instance=ExtResource( 2 )]
+margin_right = 135.0
+margin_bottom = 60.0
+size_flags_horizontal = 0
 disabled = true
-text = "Join Game"
+text = "Join:  "
+align = 0
 script = null
 
+[node name="IP" type="TextEdit" parent="Menu/JoinContainer"]
+margin_left = 148.0
+margin_right = 520.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+context_menu_enabled = false
+shortcut_keys_enabled = false
+
 [node name="Host" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 417.0
-margin_right = 270.0
-margin_bottom = 477.0
+margin_top = 425.0
+margin_right = 520.0
+margin_bottom = 485.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 disabled = true
@@ -103,8 +118,8 @@ text = "Host Game"
 script = null
 
 [node name="Padding" type="Label" parent="Menu"]
-margin_top = 577.0
-margin_right = 270.0
+margin_top = 585.0
+margin_right = 520.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -114,7 +129,7 @@ __meta__ = {
 
 [node name="Back" parent="Menu" instance=ExtResource( 2 )]
 margin_top = 700.0
-margin_right = 270.0
+margin_right = 520.0
 margin_bottom = 760.0
 text = "Back"
 scene = "res://Scenes/UI/MainMenu/TitleScreen.tscn"

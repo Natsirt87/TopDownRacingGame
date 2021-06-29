@@ -17,16 +17,20 @@ func _ready():
 func _input(event):
 	if event.is_action_pressed("pause"):
 		if not lobby.game_started:
-			get_tree().paused = !get_tree().paused
+			get_tree().set_pause(!get_tree().paused)
+			$Menu/Restart.disabled = true
+		else:
+			$Menu/Restart.disabled = true
 		visible = !visible
+		
 	elif event.is_action_pressed("ui_cancel") and get_tree().paused:
-		get_tree().paused = false
+		get_tree().set_pause(false)
 		visible = false
 	
 
 
 func _on_resume():
-	get_tree().paused = false
+	get_tree().set_pause(false)
 	visible = false
 
 
@@ -35,8 +39,9 @@ func _on_restart():
 
 
 func _on_quit():
-	get_tree().paused = false
+	get_tree().set_pause(false)
 	if lobby.game_started:
 		lobby.on_disconnect()
 	else:
+		get_node("/root/World").queue_free()
 		get_tree().change_scene("res://Scenes/UI/MainMenu/TitleScreen.tscn")

@@ -4,8 +4,6 @@
 [ext_resource path="res://Fonts/exo.regular.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scenes/UI/MainMenu/Buttons/MenuButton.tscn" type="PackedScene" id=3]
 
-
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.133333, 0.207843, 0.32549, 0.705882 )
 corner_radius_top_left = 15
@@ -74,20 +72,20 @@ __meta__ = {
 
 [node name="Resume" parent="Menu" instance=ExtResource( 3 )]
 margin_right = 420.0
-margin_bottom = 66.0
+margin_bottom = 60.0
 text = "Resume"
 script = null
 
 [node name="Restart" parent="Menu" instance=ExtResource( 3 )]
-margin_top = 101.0
+margin_top = 95.0
 margin_right = 420.0
-margin_bottom = 167.0
+margin_bottom = 155.0
 text = "Restart"
 script = null
 
 [node name="Quit" parent="Menu" instance=ExtResource( 3 )]
-margin_top = 202.0
+margin_top = 190.0
 margin_right = 420.0
-margin_bottom = 268.0
+margin_bottom = 250.0
 text = "Quit To Menu"
 script = null

@@ -51,6 +51,18 @@ var steering_input = 0
 var handbrake_pressed = false
 var clutch_pressed = false
 
+# variables for physics network synchronization
+var networked = false
+var state_position = null
+var state_rotation = null
+var other_position = null
+var other_rotation = null
+var other_velocity = Vector2(0, 0)
+var other_angular_velocity = null
+var interp_timer = 0
+var interp_pos = null
+var velocity_buffer = []
+const interp_length = 5
 
 # private car stuff
 var _manual_clutch = true
@@ -66,6 +78,7 @@ onready var right = global_transform.x.normalized()
 
 onready var wheel_group = str(get_instance_id()) + "-wheels"  # unique name for the wheel group
 onready var long_velocity_last = 0.0 # vehicle's longitudinal velocity last frame
+onready var smooth_tween = get_node("SmoothTween")
 
 
 func _ready():
@@ -134,10 +147,96 @@ func _physics_process(_delta):
 	long_velocity_last = linear_velocity.dot(forward)
 	get_tree().set_group(wheel_group, "long_acceleration", long_acceleration)
 	
-	# apply air resistance
-	var vel = drag * linear_velocity
-	var velSquared = vel.length_squared() * vel.normalized()
-	apply_central_impulse(-0.1 * velSquared)
+	if !networked:
+		# apply air resistance
+		var vel = drag * linear_velocity
+		var velSquared = vel.length_squared() * vel.normalized()
+		apply_central_impulse(-0.1 * velSquared)
+
+
+func _integrate_forces(state):
+	if networked:
+		var transform = state.get_transform()
+		
+		if other_velocity != null:
+			state.linear_velocity = other_velocity
+		
+		if other_angular_velocity != null:
+			state.angular_velocity = other_angular_velocity
+		
+		if other_rotation != null:
+			#global_rotation = lerp(global_rotation, other_rotation, 0.8)
+			transform = state.transform.rotated(other_rotation - transform.get_rotation())
+		
+		
+		if other_position != null:
+			transform.origin.x = global_position.x
+			transform.origin.y = global_position.y
+			smooth_tween.interpolate_property(self, "interp_pos", transform.origin, other_position, 0.01, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+			smooth_tween.start()
+
+		if interp_pos != null:
+			transform.origin.x = interp_pos.x
+			transform.origin.y = interp_pos.y
+		
+		state.set_transform(transform)
+		
+		other_rotation = null
+		other_velocity = null
+		other_angular_velocity = null
+	
+	state_position = state.transform.get_origin()
+	state_rotation = state.transform.get_rotation()
+
+
+func _on_interp_completed(object, key):
+	print("yeah")
+	interp_pos = null
+	other_position = null
+
+
+#func _interp_to_position(state, pos):
+#	if interp_timer < interp_length:
+#		var future_pos = pos
+#		future_pos.x += ((state.linear_velocity.x / 60) * (interp_length))
+#		future_pos.y += ((state.linear_velocity.y / 60) * (interp_length))
+#
+#		var x_increase = (future_pos.x - state.transform.origin.x) / interp_length
+#		var y_increase = (future_pos.y - state.transform.origin.y) / interp_length
+#		state.transform.origin.x += x_increase
+#		state.transform.origin.y += y_increase
+#
+#		interp_timer += 1 
+#	else:
+#		interp_timer = 0
+#		other_position = null
+
+
+func _interp_to_position(state, pos):
+	var length_left = clamp(interp_length - interp_timer, 1, 100)
+	var starting_pos = pos
+
+	for i in velocity_buffer.size():
+		starting_pos.x += velocity_buffer[i].x
+		starting_pos.y += velocity_buffer[i].y
+
+	var future_pos = starting_pos
+	future_pos.x += ((state.linear_velocity.x / 60) * (length_left))
+	future_pos.y += ((state.linear_velocity.y / 60) * (length_left))
+
+	if interp_timer < interp_length:
+		var x_increase = (future_pos.x - state.transform.origin.x) / interp_length
+		var y_increase = (future_pos.y - state.transform.origin.y) / interp_length
+		state.transform.origin.x += x_increase
+		state.transform.origin.y += y_increase
+
+		velocity_buffer.append(state.linear_velocity)
+		interp_timer += 1
+	else:
+		state.transform.origin = future_pos
+		interp_timer = 0
+		other_position = null
+		velocity_buffer.clear()
 
 
 # wheels send their speeds to the vehicle through this function, vehicle keeps track of them
@@ -323,3 +422,6 @@ func _rev_match(rpm_climb, rpm_fall):
 			return fall_diff / net_climb
 	else:
 		return 1
+
+
+

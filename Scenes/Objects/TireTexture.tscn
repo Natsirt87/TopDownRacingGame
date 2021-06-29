@@ -4,18 +4,15 @@
 [ext_resource path="res://Shaders/offset_shadow_standalone.shader" type="Shader" id=2]
 [ext_resource path="res://Scripts/Effects/shadow.gd" type="Script" id=3]
 
-
-
 [sub_resource type="PhysicsMaterial" id=1]
 friction = 0.5
-bounce = 0.3
+bounce = 0.6
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 20.4352
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 2 )
-shader_param/offset = Vector2( 8, 8 )
 shader_param/modulate = Color( 0, 0, 0, 0.392157 )
 
 [node name="TireTexture" type="RigidBody2D"]
@@ -38,4 +35,4 @@ scale = Vector2( 0.5, 0.5 )
 z_index = -1
 texture = ExtResource( 1 )
 script = ExtResource( 3 )
-_sun_height = 20
+_sun_height = 8

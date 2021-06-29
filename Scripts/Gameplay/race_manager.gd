@@ -2,7 +2,6 @@ extends Node2D
 class_name RaceManager
 
 export var starting_points = []
-export var networked = false
 
 # 0 = practice, 1 = qualifying, 2 = race
 var mode
@@ -72,8 +71,6 @@ class Driver:
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	mode = save_system.load_cfg_value("Session", "Mode")
-	if not networked:
-		init()
 
 
 func init():
@@ -87,18 +84,12 @@ func init():
 		for j in _drivers:
 			j.completed_checkpoints.append(false)
 	
-	if networked:
-		for i in _drivers:
+	for i in _drivers:
 			i.starting_pos = i.controller.starting_pos
-	else:
-		for i in range(_drivers.size()):
-			_drivers[i].starting_pos = i + 1
 	
 	for i in _drivers:
-		print(i.starting_pos)
 		i.controller.set_global_position(get_node(starting_points[i.starting_pos - 1]).get_global_position())
 		i.controller.set_global_rotation(get_node(starting_points[i.starting_pos - 1]).get_global_rotation())
-		if not networked: i.controller.init()
 		i.controller.create_vehicle()
 
 

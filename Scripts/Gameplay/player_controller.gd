@@ -49,7 +49,7 @@ func create_vehicle():
 	camera.current = true
 
 
-func _process(delta):
+func _physics_process(delta):
 	_set_input()
 	_set_vehicle_stats()
 

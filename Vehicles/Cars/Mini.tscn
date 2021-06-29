@@ -57,7 +57,7 @@ position = Vector2( 29, 33 )
 scale = Vector2( 0.189, 0.14 )
 
 [node name="Body" parent="." index="1"]
-position = Vector2( -0.2, 6 )
+position = Vector2( 0, 6 )
 texture = ExtResource( 2 )
 
 [node name="Collision" parent="." index="2"]

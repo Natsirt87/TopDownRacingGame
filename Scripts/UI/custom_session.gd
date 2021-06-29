@@ -40,8 +40,20 @@ func _ready():
 
 
 func _on_start():
-	var levelPath = "res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + ".tscn"
-	get_tree().change_scene(levelPath)
+	get_tree().set_pause(true)
+	get_node("/root/CustomSession").queue_free()
+	var world = load("res://Scenes/Tracks/" + save_system.tracks[save_system.load_cfg_value("Session", "Track")] + ".tscn").instance()
+	get_node("/root").add_child(world)
+	
+	var player = preload("res://Scenes/Player.tscn").instance()
+	get_node("/root/World/Drivers").add_child(player)
+	
+	player.set_name("Player")
+	player.init()
+	player.starting_pos = 1
+	get_node("/root/World/RaceManager").init()
+	
+	get_tree().set_pause(false)
 
 
 func _set_car_stats():

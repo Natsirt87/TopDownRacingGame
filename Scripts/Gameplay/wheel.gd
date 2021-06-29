@@ -155,7 +155,7 @@ func brake(brake_input):
 		
 		if vehicle.linear_velocity.length() > 5:
 			vehicle.apply_impulse(player_to_wheel, desired_braking_force)
-			pass
+			
 		
 		_desired_traction += abs(desired_braking_force.length())
 
@@ -163,7 +163,6 @@ func brake(brake_input):
 func handbrake():
 	if !front:
 		_desired_traction += _current_traction_limit * handbrake_multiplier
-		print(handbrake_multiplier)
 		wheel_locked = true
 
 func apply_wheel_forces():

@@ -6,7 +6,8 @@ const MAX_CLIENTS = 10
 
 onready var lobby = get_node("/root/Lobby")
 
-onready var join_button : Button = $Menu/Join
+onready var join_button : Button = $Menu/JoinContainer/Join
+onready var join_ip : TextEdit = $Menu/JoinContainer/IP
 onready var host_button : Button = $Menu/Host
 onready var player_name : TextEdit = $Menu/NameContainer/Name
 
@@ -20,15 +21,17 @@ func _process(delta):
 		join_button.disabled = true
 		host_button.disabled = true
 	else:
-		join_button.disabled = false
+		if join_ip.text != "":
+			join_button.disabled = false
 		host_button.disabled = false
 
 
 func _on_join():
 	print("joining")
+	lobby.set_info()
 	lobby.set_name(player_name.text)
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client(DEFAULT_IP, DEFAULT_PORT)
+	peer.create_client(join_ip.text, DEFAULT_PORT)
 	get_tree().network_peer = peer
 	var current_scene = get_tree().get_root().get_child(get_tree().get_root().get_child_count() - 1)
 	current_scene.queue_free()
@@ -37,6 +40,7 @@ func _on_join():
 
 func _on_host():
 	print("hosting")
+	lobby.set_info()
 	lobby.set_name(player_name.text)
 	var peer = NetworkedMultiplayerENet.new()
 	peer.create_server(DEFAULT_PORT, MAX_CLIENTS)

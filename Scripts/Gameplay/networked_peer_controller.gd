@@ -13,14 +13,18 @@ var countersteer_assist = 0
 var throttle = 0
 var brake = 0
 var handbrake = false
-var steer_right = 0
-var steer_left = 0
+var steering_input = 0
 var clutch = false
 var gear_up = false
 var gear_down = false
 
-var save_system 
+var current_state = null
+var state_time = 0
 
+var velocity = Vector2(0, 0)
+var angular_velocity = 0
+
+var save_system 
 
 func init(car_num):
 	save_system = get_node("/root/SaveSystem")
@@ -32,6 +36,7 @@ func create_vehicle():
 	var vehicle_resource = load("res://Vehicles/Cars/" + vehicle_name + ".tscn")
 	vehicle = vehicle_resource.instance()
 	vehicle.set_name(vehicle_name)
+	vehicle.networked = true
 	vehicle.automatic = automatic
 	vehicle.steering_speed = steering_speed
 	vehicle.steering_speed_decay = steering_speed_decay
@@ -39,36 +44,49 @@ func create_vehicle():
 	add_child(vehicle)
 
 
-func _process(delta):
+func _physics_process(delta):
 	_set_input()
+	if current_state != null:
+		_set_position(current_state["P"])
+		_set_rotation(current_state["R"])
+		current_state = null
+	
+	set_velocity(velocity)
+	set_angular_velocity(angular_velocity)
 
-
-# time for input
 
 func _set_input():
 	vehicle.throttle_input = throttle
 	vehicle.brake_input = brake
 	vehicle.handbrake_pressed = handbrake
-	
-	_set_steering_input()
-	_process_clutch()
-	_process_shifting()
-
-
-func _set_steering_input():
-	var steering_input = 0.0
-	var steer_right_strength = steer_right
-	var steer_left_strength = steer_left
-	steering_input += steer_right_strength
-	steering_input -= steer_left_strength
 	vehicle.steering_input = steering_input
-
-
-func _process_clutch():
 	vehicle.clutch_pressed = clutch
 
-func _process_shifting():
-	if gear_up:
-		vehicle.gear_up()
-	elif gear_down:
-		vehicle.gear_down()
+
+func set_state(state):
+	if state["T"] > state_time:
+		state_time = state["T"]
+		current_state = state
+
+
+func shift_up():
+	vehicle.gear_up()
+
+func shift_down():
+	vehicle.gear_down()
+
+
+func _set_position(position):
+	if vehicle.other_position == null:
+		vehicle.other_position = position
+
+func _set_rotation(rotation):
+	if vehicle.other_rotation == null:
+		vehicle.other_rotation = rotation
+
+
+func set_velocity(velocity):
+	vehicle.other_velocity = velocity
+
+func set_angular_velocity(angular_velocity):
+	vehicle.other_angular_velocity = angular_velocity

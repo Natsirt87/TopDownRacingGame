@@ -51,13 +51,13 @@ align = 1
 [node name="MainRow" type="VBoxContainer" parent="Menu"]
 margin_top = 78.0
 margin_right = 1320.0
-margin_bottom = 589.0
+margin_bottom = 601.0
 size_flags_vertical = 3
 script = ExtResource( 8 )
 
 [node name="TopRow" type="HBoxContainer" parent="Menu/MainRow"]
 margin_right = 1320.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -65,30 +65,30 @@ alignment = 1
 
 [node name="CarSection" type="HBoxContainer" parent="Menu/MainRow/TopRow"]
 margin_right = 440.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = -30
 alignment = 1
 
 [node name="LeftPadding" type="Label" parent="Menu/MainRow/TopRow/CarSection"]
-margin_top = 119.0
+margin_top = 122.0
 margin_right = 40.0
-margin_bottom = 133.0
+margin_bottom = 136.0
 text = "          "
 
 [node name="Previous" parent="Menu/MainRow/TopRow/CarSection" instance=ExtResource( 2 )]
 margin_left = 10.0
 margin_right = 130.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 text = "<"
 script = null
 
 [node name="Car" type="Label" parent="Menu/MainRow/TopRow/CarSection"]
 margin_left = 182.0
-margin_top = 101.0
+margin_top = 104.0
 margin_right = 258.0
-margin_bottom = 151.0
+margin_bottom = 154.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 4 )
 text = "Car"
@@ -97,44 +97,44 @@ align = 2
 [node name="Next" parent="Menu/MainRow/TopRow/CarSection" instance=ExtResource( 2 )]
 margin_left = 310.0
 margin_right = 430.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 text = ">"
 script = null
 
 [node name="RightPadding" type="Label" parent="Menu/MainRow/TopRow/CarSection"]
 margin_left = 400.0
-margin_top = 119.0
+margin_top = 122.0
 margin_right = 440.0
-margin_bottom = 133.0
+margin_bottom = 136.0
 text = "          "
 
 [node name="TrackSection" type="HBoxContainer" parent="Menu/MainRow/TopRow"]
 margin_left = 440.0
 margin_right = 880.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = -30
 alignment = 1
 
 [node name="LeftPadding2" type="Label" parent="Menu/MainRow/TopRow/TrackSection"]
-margin_top = 119.0
+margin_top = 122.0
 margin_right = 40.0
-margin_bottom = 133.0
+margin_bottom = 136.0
 text = "          "
 
 [node name="Previous" parent="Menu/MainRow/TopRow/TrackSection" instance=ExtResource( 2 )]
 margin_left = 10.0
 margin_right = 130.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 text = "<"
 script = null
 
 [node name="Track" type="Label" parent="Menu/MainRow/TopRow/TrackSection"]
 margin_left = 157.0
-margin_top = 101.0
+margin_top = 104.0
 margin_right = 283.0
-margin_bottom = 151.0
+margin_bottom = 154.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 4 )
 text = "Track"
@@ -143,44 +143,44 @@ align = 2
 [node name="Next" parent="Menu/MainRow/TopRow/TrackSection" instance=ExtResource( 2 )]
 margin_left = 310.0
 margin_right = 430.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 text = ">"
 script = null
 
 [node name="RightPadding2" type="Label" parent="Menu/MainRow/TopRow/TrackSection"]
 margin_left = 400.0
-margin_top = 119.0
+margin_top = 122.0
 margin_right = 440.0
-margin_bottom = 133.0
+margin_bottom = 136.0
 text = "          "
 
 [node name="ModeSection" type="HBoxContainer" parent="Menu/MainRow/TopRow"]
 margin_left = 880.0
 margin_right = 1320.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = -30
 alignment = 1
 
 [node name="LeftPadding3" type="Label" parent="Menu/MainRow/TopRow/ModeSection"]
-margin_top = 119.0
+margin_top = 122.0
 margin_right = 40.0
-margin_bottom = 133.0
+margin_bottom = 136.0
 text = "          "
 
 [node name="Previous" parent="Menu/MainRow/TopRow/ModeSection" instance=ExtResource( 2 )]
 margin_left = 10.0
 margin_right = 130.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 text = "<"
 script = null
 
 [node name="Mode" type="Label" parent="Menu/MainRow/TopRow/ModeSection"]
 margin_left = 159.0
-margin_top = 101.0
+margin_top = 104.0
 margin_right = 281.0
-margin_bottom = 151.0
+margin_bottom = 154.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 4 )
 text = "Mode"
@@ -189,40 +189,40 @@ align = 2
 [node name="Next" parent="Menu/MainRow/TopRow/ModeSection" instance=ExtResource( 2 )]
 margin_left = 310.0
 margin_right = 430.0
-margin_bottom = 253.0
+margin_bottom = 259.0
 text = ">"
 script = null
 
 [node name="RightPadding3" type="Label" parent="Menu/MainRow/TopRow/ModeSection"]
 margin_left = 400.0
-margin_top = 119.0
+margin_top = 122.0
 margin_right = 440.0
-margin_bottom = 133.0
+margin_bottom = 136.0
 text = "          "
 
 [node name="Label" type="Label" parent="Menu/MainRow/TopRow"]
 margin_left = 1320.0
-margin_top = 119.0
+margin_top = 122.0
 margin_right = 1320.0
-margin_bottom = 133.0
+margin_bottom = 136.0
 
 [node name="BottomRow" type="HBoxContainer" parent="Menu/MainRow"]
-margin_top = 257.0
+margin_top = 263.0
 margin_right = 1320.0
-margin_bottom = 511.0
+margin_bottom = 523.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Car" type="HBoxContainer" parent="Menu/MainRow/BottomRow"]
 margin_right = 437.0
-margin_bottom = 254.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="CarIcon" type="TextureRect" parent="Menu/MainRow/BottomRow/Car"]
 margin_right = 216.0
-margin_bottom = 254.0
+margin_bottom = 260.0
 rect_pivot_offset = Vector2( 108.25, 127 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -233,15 +233,15 @@ stretch_mode = 6
 [node name="Stats" type="VBoxContainer" parent="Menu/MainRow/BottomRow/Car"]
 margin_left = 220.0
 margin_right = 437.0
-margin_bottom = 254.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Text" type="Label" parent="Menu/MainRow/BottomRow/Car/Stats"]
-margin_top = 56.0
+margin_top = 59.0
 margin_right = 217.0
-margin_bottom = 197.0
+margin_bottom = 200.0
 custom_fonts/font = SubResource( 2 )
 text = "Rotary - 180hp
 2700 lbs (1225 kg)
@@ -253,34 +253,34 @@ valign = 1
 [node name="Track" type="HBoxContainer" parent="Menu/MainRow/BottomRow"]
 margin_left = 441.0
 margin_right = 878.0
-margin_bottom = 254.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Mode" type="HBoxContainer" parent="Menu/MainRow/BottomRow"]
 margin_left = 882.0
 margin_right = 1320.0
-margin_bottom = 254.0
+margin_bottom = 260.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Start" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 624.0
+margin_top = 636.0
 margin_right = 1320.0
-margin_bottom = 690.0
+margin_bottom = 696.0
 text = "Start"
 script = null
 
 [node name="Label" type="Label" parent="Menu"]
-margin_top = 725.0
+margin_top = 731.0
 margin_right = 1320.0
-margin_bottom = 739.0
+margin_bottom = 745.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Back" parent="Menu" instance=ExtResource( 2 )]
-margin_top = 774.0
+margin_top = 780.0
 margin_right = 1320.0
 margin_bottom = 840.0
 text = "Back"

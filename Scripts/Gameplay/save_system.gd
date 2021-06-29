@@ -144,10 +144,10 @@ func _init_game_cfg():
 		save_cfg_value("Game", "SteeringSensitivity", 0.7)
 	
 	if load_cfg_value("Game", "SteeringSpeedDecay") == null:
-		save_cfg_value("Game", "SteeringSpeedDecay", 0.3)
+		save_cfg_value("Game", "SteeringSpeedDecay", 0.5)
 	
 	if load_cfg_value("Game", "CountersteerAssist") == null:
-		save_cfg_value("Game", "CountersteerAssist", 0.3);
+		save_cfg_value("Game", "CountersteerAssist", 0.4);
 	
 	if load_cfg_value("Game", "CameraZoomSpeed") == null:
 		save_cfg_value("Game", "CameraZoomSpeed", 0.35)

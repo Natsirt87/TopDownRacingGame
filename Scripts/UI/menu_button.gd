@@ -3,8 +3,6 @@ extends Button
 
 export(String) var scene
 
-onready var scene_switcher = get_node("/root/SceneSwitcher")
-
 func _ready():
 	connect("button_up", self, "_on_pressed")
 
